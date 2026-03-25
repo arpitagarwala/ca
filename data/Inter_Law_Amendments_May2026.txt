@@ -1,0 +1,160 @@
+
+
+ 
+AMENDMENTS FOR MAY 2026 EXAMINATIONS 
+The  Study  Material  (July  2024  edition-Reprint  August  2025)  is  applicable  for 
+May 2026 examinations. This study material is updated for all amendments till 
+31
+st
+ July, 2025.  
+All relevant amendments/ circulars/ notifications etc. in the Company law part 
+for the period 1
+st
+ May, 2025 to 31
+st
+ October, 2025 are mentioned below: 
+THE COMPANIES ACT, 2013 
+Chapter 9: Accounts of Companies 
+I.  Notification G.S.R 357(E) dated 30
+th
+ May, 2025  
+ The Central Government  has amended the  Companies (Accounts) Rules, 
+2014,  through  the  Companies  (Accounts)  Second  Amendment  Rules, 
+2025. 
+ Amendment:  
+ In the Companies (Accounts) Rules, 2014:  
+1.  In  rule  5,  for  the  word,  letter  and  figure “Form AOC-1” the word, 
+letter and figure “e-Form AOC-1” shall be substituted.  
+2.  In rule 8,-  
+(i)  in sub-rule (2), for the word, letter and figure “Form AOC-2”, 
+the   word,   letter   and   figure “e-Form   AOC-2” shall   be 
+substituted.  
+(ii)  in sub-rule (5),-  
+(A)  in clause (x), after the words and figures, “Act, 2013”, 
+the following shall be inserted, namely: 
+PAPER – 2:  
+CORPORATE AND OTHER 
+LAWS 
+
+ 
+CORPORATE AND OTHER LAWS 
+ 
+ 
+  
+MAY 2026 EXAMINATION 
+ 
+AMENDMENTS 
+ 
+ “along with the following details:  
+(a)  number  of  complaints  of  sexual  harassment 
+received in the year;  
+(b)  number  of  complaints  disposed  off  during  the 
+year; and  
+(c)  number of cases pending for more than ninety 
+days.“ 
+(B)  after  clause  (xii),  the  following  clause  shall  be  inserted, 
+namely: 
+ “(xiii) a statement by the company with respect to the 
+compliance  of  the  provisions  relating  to  the Maternity 
+Benefit Act, 1961.” 
+3.  In  rule  12,  after  sub-rule  (1B),  the  following  sub-rule  shall  be 
+inserted, namely: 
+ “(1C) Every company, along with the relevant e-Form  No.  AOC-4, 
+AOC-4  CFS,  AOC-4  XBRL,  AOC-4  NBFC  (Ind  AS)  or  AOC-4  CFS 
+NBFC   (Ind   AS)   and   the   respective   attachments   in   portable 
+document  format  as  required,  shall  also  file  e-Form  Extract  of 
+Board Report, Extract of Auditor‘s Report (Standalone) and Extract 
+of Auditor‘s Report (Consolidated), as the case may be:  
+ Provided   that   a   copy   of   signed financial   statements   duly 
+authenticated  as  per  section  134  of  the  Act  (including  Board‘s 
+report,  auditors’  report  and  other  documents)  in  portable 
+document format shall also be attached with XBRL Forms.” 
+[Enforcement Date: Amendments effective from 14
+th
+ July, 2025] 
+Old Law 
+Pg 9.13 (for Pt 1.) 
+Salient  features  of  financial  statement  of  Subsidiaries,  Associates 
+and JVs- Form [First proviso to Sub-section 3 read with rule 5] 
+
+ 
+INTERMEDIATE EXAMINATION 
+ 
+ 
+  
+AMENDMENTS 
+ 
+MAY 2026 EXAMINATION 
+ 
+The  statement  containing  the  salient  feature  of  the  financial  statement 
+of  a  company’s  subsidiary  or  subsidiaries,  associate  company  or 
+companies  and  joint  venture  or  ventures  under  the  first  proviso  to  sub-
+section  (3)  of  section  129  shall  be  in Form  AOC-1 as  per  Rule  5  of  the 
+Companies (Accounts) Rules, 2014. 
+Pg 9.36 [for Pt 2(i)] 
+Particulars  of  contracts  or  arrangements  with  related  parties  referred  to 
+in section 188 (1) (i.e., Related Party Transactions) in the form AOC-2. 
+Pg 9.36 [for Pt 2(ii)(A)] 
+The words are newly inserted in clause (x) 
+Pg 9.36 [for Pt 2(ii)(B)] 
+Clause (xiii) is newly inserted. 
+Pg 9.70 [for Pt 3] 
+Rule 12(1C) is newly inserted. 
+II.  Notification G.S.R 371(E) dated 6th June, 2025  
+ The   Central   Government   has   amended   the Companies   (Filing   of 
+Documents and Forms in Extensible Business Reporting Language) Rules, 
+2015,   through   the Companies   (Filing   of   Documents   and   Forms   in 
+Extensible Business Reporting Language) Amendment Rules, 2025. 
+Amendment:  
+ In the Companies (Filing of Documents and Forms in Extensible Business 
+Reporting  Language)  Rules,  2015,  in  rule  3,  after  sub-rule  (1),  the 
+following sub-rule shall be inserted, namely:  
+ “(1A) The companies which have filed their financial statements under 
+sub-rule  (1),  shall also attach a copy  of signed  financial  statements duly 
+authenticated as specified in section 134 of the Act (including Board’s 
+report, auditors’ report and other documents)  in  PDF  format  in  eForm 
+AOC-4 XBRL.” 
+ [Enforcement Date: Amendments effective from 14
+th
+ July, 2025] 
+
+ 
+CORPORATE AND OTHER LAWS 
+ 
+ 
+  
+MAY 2026 EXAMINATION 
+ 
+AMENDMENTS 
+ 
+Old Law 
+Pg 9.70 
+Rule 3(1A) is newly inserted. 
+Chapter 10: Audit and Auditors 
+Notification G.S.R 359(E) dated 30
+th
+ May, 2025  
+The  Central  Government  has  amended  the  Companies  (Audit  and  Auditors) 
+Rules,  2014,  through  the  Companies  (Audit  and  Auditors)  Amendment  Rules, 
+2025. 
+In rule 13, in sub-rule (2),-  
+1. for clause (d), the following shall be substituted, namely:-  
+ “(d) the report shall be filed electronically in form ADT-4.”  
+2.   clauses (e) and (f) shall be omitted. 
+[Enforcement Date: Amendments effective from 14
+th
+ July, 2025] 
+Old Law 
+Pg 10.38 [for Pt 1] 
+d.  The  report  shall  be  sent  to  the  Secretary,  Ministry  of  Corporate 
+Affairs    (MCA)    in    a    sealed    cover    by    Registered    Post    with 
+Acknowledgement  Due  or  by  Speed  Post  followed  by  an  e-mail  in 
+confirmation of the same; 
+Pg 10.38 [for Pt 2] 
+e.  The  report  shall  be  on the  letter-head  of  the  auditor  containing 
+postal  address,  e-mail  address  and  contact  telephone  number  or 
+mobile number and be signed by the auditor with his seal and shall 
+indicate his Membership Number; and 
+f.  The  report  shall  be  in  the  form  of  a  statement  as  specified  in Form 
+ADT-4. 
+ 

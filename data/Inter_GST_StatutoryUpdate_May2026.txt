@@ -1,0 +1,494 @@
+
+
+PAPER 3B: GOODS AND SERVICES TAX 
+STATUTORY UPDATE FOR MAY 2026 
+EXAMINATION 
+For the sake of brevity, Central Goods and Services Tax, Integrated Goods and Services 
+Tax, Central Goods and Services Tax Act, 2017, Integrated Goods and Services Tax Act, 
+2017, Central Goods and Services Tax Rules, 2017 and Integrated Goods and Services 
+Tax Rules, 2017 have been referred to as CGST, IGST, CGST Act, IGST Act, CGST Rules 
+and IGST Rules respectively. 
+The provisions of the CGST Act, 2017 and the IGST Act, 2017 as amended by the 
+Finance Act, 2025 including significant notifications and circulars issued and other 
+legislative amendments made, which have become effective up to 31.10.2025, are 
+applicable for May 2026 examination.  
+The amendments made by the Annual Union Finance Acts in the CGST Act, 2017 and 
+IGST Act, 2017 are made effective from the date notified subsequently.  Thus, those 
+amendments  made  by  the  relevant  Finance  Acts  which  have  become  effective  till  
+31.10.2025 are  applicable  for  May,  2026  examination.    Accordingly,  all  the  
+amendments  made  by  the  Finance  Act,  2025  are  applicable  for  May 2026 
+examination.  
+The subject matter of July edition of the Study Material of Goods and Services 
+Tax is based on the provisions of the CGST Act and the IGST Act as amended by 
+the notifications and circulars issued up to 30.04.2025.  The amendments made 
+vide  relevant  Finance  Acts,  which  have  become  effective  till  30.04.2025,  and  
+significant   notifications   and   circulars   issued   upto   30.04.2025 have   been   
+incorporated in the Study Material.   
+Further, students are advised to read all the amendments made by the Finance 
+Act, 2025 given at the end of relevant chapters for May 2026 examinations as all 
+such amendments have become effective. 
+The significant notifications  and  circulars  issued  between  01.05.2025 and 
+31.10.2025 in GST laws are given in this Statutory Update.   
+For the ease of reference, the amendments have been grouped into Chapters which 
+correspond with the Chapters of the Study Material.    
+
+ 
+2 
+ 
+    
+ 
+ 
+CHAPTER 
+3 
+ 
+ 
+  
+ 
+CHARGE OF GST 
+ 
+1. Amendments in the list of notified services tax on which is paid by the 
+electronic   commerce   operator   (ECO)   if   such   services   are   supplied   
+through it. 
+ The  Government  may,  on  the  recommendations  of  the  GST  Council,  notify 
+specific     categories     of     services     the     tax     
+[CGST/SGST/IGST] on  supplies  of  which  shall  be  
+paid   by   the   electronic   commerce   operator 
+(ECO)  if  such  services  are  supplied  through  it.  
+Such    services    shall    be    notified    on    the    
+recommendations  of  the  GST  Council  [Section 
+9(5) of the CGST Act/Section 5(5) of the IGST Act]. 
+ Notification  No.  17/2017  CT  (R)  dated  28.06.2017/  Notification  No.  
+14/2017  IT  (R)  dated  28.06.2017  as  amended  has  notified  the  following  
+categories of services supplied through ECO for this purpose – 
+(a) services  by  way  of  transportation  of  passengers  by  a  radio-taxi, 
+motorcab,  maxicab,  motorcycle,  or any  other  motor  vehicle  except  
+omnibus;  
+(b) Services by way of transportation of passengers by an omnibus except 
+where the person supplying such service through ECO is a company**.
+ 
+(c) services  by  way  of  providing  accommodation  in  hotels,  inns,  guest  
+houses,   clubs,   campsites   or   other   commercial   places   meant   for   
+residential  or  lodging  purposes,  except  where  the  person  supplying  
+such   service   through   electronic   commerce   operator   is   liable   for   
+registration under section 22(1).  
+
+ 
+3 
+ 
+(d) services  by  way  of  house-keeping, 
+such  as  plumbing,  carpentering  etc,  
+except  where  the  person  supplying  
+such    service    through    electronic    
+commerce   operator   is   liable   for   
+registration under sub-section 22(1). 
+(e) supply  of  restaurant  service  other  
+than  the  services  supplied  by  restaurant,  eating  joints  etc.  located  at  
+specified premises. 
+(f) services by way of local delivery except where the person supplying 
+such services  through  electronic  commerce  operator  is  liable  for  
+registration under sub section (1) of section 22 of the Central Goods 
+and Services Tax Act, 2017. 
+ **The tax on services by way of transportation of passengers by an omnibus 
+provided by a company through ECO is not payable by ECO. It will be payable 
+by the company itself. 
+ [Effective from 22.09.2025] 
+[Notification No.17/2025 CT(R) and Notification No. 17/2025 IT(R) both 
+dated 17.09.2025] 
+2. Change in GST rates 
+(i)  Taxability of Goods Transport Agency (GTA) services 
+(a) Where GTA  has  not  taken  the  Input  Tax  Credit  (ITC)  on  goods  or  
+services used in supplying GTA service (there can be either of the cases - 
+where GTA exercises the option to itself pay GST at said rate or /does 
+not  exercise  the  option  to  itself  pay  GST  at  said  rate,  on  services  
+supplied  by  it)  –   taxable @  5%  (2.5%  CGST+2.5%  SGST/UTGST  or  5%  
+IGST)-This remains unchanged. 
+(b) Where GTA  wishes  to  avail  ITC  on  goods  or  services  used  in  
+supplying GTA service– Earlier taxable @ 12% (6% CGST+6% SGST/UTGST 
+or  12%  IGST)  , this rate  has  been  changed  to  18%  (9%  CGST+9%  
+SGST/UTGST or 18% IGST) 
+ 
+
+ 
+4 
+ 
+(ii) Taxability of service by way of renting of any motor 
+vehicle designed to carry passengers where the cost 
+of fuel is included in the consideration charged from 
+the service recipient 
+(a) If supplier of services has taken only the limited ITC (of input services in 
+the same line of business) – taxable @ 5% 
+(2.5% CGST+2.5% SGST/UTGST or 
+5% IGST)
+ --This remains unchanged. 
+(b) Where Supplier  wishes  to  avail  ITC  without  restriction  on  goods  or  
+services  used  in  supplying  renting  of  motor  vehicles  service  -  Earlier 
+taxable @ 12% (6% CGST+6% SGST/UTGST or 12% IGST),  this rate has 
+been changed to 18%
+1
+ (9% CGST+9% SGST/UTGST or 18% IGST). 
+ 
+ [Effective from 22
+nd
+ September, 2025] 
+ [Notification  No.  15/2025  CT  (R)  dated  17.09.2025 & Notification  No.  
+15/2025 IT(R) both dated 17.09.2025] 
+  
+ 
+1
+  Amended  vide  Notification  No.  11/2017  CT  (R)  dated  28.06.2017.    It  may  be  noted  that  
+Reverse Charge Notification No. 13/2017 CT (R) dated 28.06.2017 still contains 12% rate. 
+
+ 
+5 
+ 
+a
+    
+ 
+CHAPTER 
+5
+ 
+ 
+ 
+ 
+ 
+ 
+ EXEMPTIONS FROM  
+ GST 
+ 
+Entry  Nos.  referred  to  in  this  chapter  correspond  to  entries  in  Notification  No.  
+12/2017 CT (R) dated 28.06.2017 which grants exemption from GST for intra-State 
+supply of specified services.  However, these entry numbers have been given only for 
+reference purposes and are not relevant for examination purpose. 
+1. Amendments in the services exempted from GST  
+ Notification  no.  12/2017  CT(R)  dated  28.06.2017  provides  list  of  services  
+exempted from CGST.  Parallel exemptions from IGST have been granted to 
+inter-State  supply  of  services  vide  Notification  No.  9/2017  IT(R)  dated  
+28.06.2017.  
+ The  amendments  in  the  list  of  exempted  services  have  been  highlighted  in  
+bold italics/in strikethrough form, hereunder: 
+ (i)  Amendments in the existing exemptions 
+ Following existing exemptions have been amended: 
+Sl. No. Description of services Effective from 
+18 Services by way of transportation of goods- 
+(a) by road except the services of— 
+(i)  a goods transportation agency; 
+(ii) a courier agency; 
+22.09.2025 
+
+ 
+6 
+ 
+(b) by inland waterways. 
+Explanation. - Nothing  contained  in  this  
+entry shall apply to:  
+(i)  local  delivery  services  provided  by  an  
+Electronic Commerce Operator; or  
+(ii) local delivery services provided through 
+an Electronic Commerce Operator. 
+ (ii)    New exemption introduced 
+ Following new services have been exempted from CGST: 
+Sl. No. Description of services Effective from 
+36C 
+Services    of    life    insurance    business    
+provided  by  an  insurer  to  the  insured,  
+where the insured is not a group.  
+Explanation: For the removal of doubts, it 
+is hereby clarified that:  
+a.  This  exemption  shall  apply  to  a  
+contract   of   insurance   where   the   
+insured   is   an   individual,   or   an   
+individual  and  family  of  the  said  
+individual.  
+b.  For   the   purposes   of   (a)   above,   
+family  shall  include  all  individuals  
+insured as family in the contract of 
+insurance. 
+22.09.2025 
+36D 
+Services   of   health   insurance   business   
+provided  by  an  insurer  to  the  insured,  
+where the insured is not a group.  
+Explanation: For the removal of doubts, it 
+is hereby clarified that:  
+a.  This  exemption  shall  apply  to  a  
+contract   of   insurance   where   the   
+insured   is   an   individual,   or   an   
+22.09.2025 
+
+ 
+7 
+ 
+individual  and  family  of  the  said  
+individual. 
+b.  For   the   purposes   of   (a)   above,   
+family  shall  include  all  individuals  
+insured as family in the contract of 
+insurance. 
+36E 
+Reinsurance   of   the   insurance   services   
+specified in serial numbers 36C or 36D. 
+22.09.2025 
+(iii)   Amendments in the existing definition 
+ Following existing definition has been substituted in paragraph 2: 
+Sl. No. Description of services Effective from 
+ze 
+Goods Transport agency (GTA) means any 
+person who: 
+ provides  service  in  relation  to 
+transport of goods by road and  
+ issues   consignment   note,   by   
+whatever name called.   
+‘goods   transport   agency’   means   any   
+person who provides service in relation to 
+transport  of  goods  by  road  and  issues  a  
+consignment   note   by   whatever   name   
+called, but does not include  
+(i) an electronic commerce operator by 
+whom  the  services  of  local  delivery  
+are provided,  
+(ii)  an   electronic   commerce   operator   
+through  whom  the  services  of  local  
+delivery are provided. 
+22.09.2025 
+ 
+  
+
+ 
+8 
+ 
+(iv)    New definitions introduced 
+Following definitions have been added in paragraph 2: 
+Sl. No. Description of services Effective from 
+zfb 
+For   the   purposes   of   entries   at   serial   
+numbers 36C and 36D in the table above, 
+‘group’  means  group  of  persons  who  join  
+together  with  a  commonality  of  purpose  
+or  for  engaging  in  a  common  economic  
+activity,  other  than  availing  insurance,  
+and includes:  
+a.  Employer– employee  groups,  where  
+an  employer-employee  relationship  
+exists   between   the   master/group   
+policyholder and the members of the 
+group    in    accordance    with    the    
+applicable laws;  
+b.  Non   employer– employee   groups,   
+where a clearly evident relationship 
+exists   between   the   master/group   
+policyholder and the members of the 
+group,  for  services/  activities  other  
+than insurance. 
+22.09.2025 
+zga 
+‘health   insurance   business’   means   the   
+effecting  of  contracts  which  provide  for  
+sickness  benefits  or  medical,  surgical  or  
+hospital   expense   benefits,   whether   in-
+patient  or  out-
+patient,  travel  cover  and  
+personal accident cover. 
+22.09.2025 
+ Parallel  amendments  in  exemptions  from  IGST  to  inter-State  supply  of  
+services  have  been  carried  out  by  amending  Notification  No.  9/2017  IT(R)  
+dated 28.06.2017. 
+ [Notification No. 16/2025 CT(R) and Notification No. 16/2025 IT(R) both 
+dated 17.09.2025]  
+
+ 
+9 
+ 
+    
+ 
+CHAPTER 
+7 
+ 
+ 
+ 
+ 
+VALUE OF SUPPLY 
+ 
+ 
+1. Clarification  on  various  doubts  related  to  treatment  of  secondary  or  
+post-sale discounts under GST 
+Circular No. 251/08/2025-GST dated 12.09.2025 has clarified as follows: 
+Issue: Whether the full input tax credit is available to the recipient of supply when 
+the recipients make discounted payments to the supplier of goods on account of 
+financial/ commercial credit notes issued by the said supplier? 
+Clarification:  
+Section  16  (1)  of  the  CGST  Act,  2017  provides  that  every  registered  person  shall  be  
+entitled to take credit of input tax charged on any supply of goods or services or both, 
+which are used or intended to be used in the course or furtherance of his business. 
+It has been clarified vide Circular No. 92/11/2019-GST, dated 7th March 2019 that 
+the supplier of goods can issue financial/ commercial credit notes and in such cases, 
+he will not be eligible to reduce his original tax liability. As the transaction value is 
+not allowed to be reduced on account of issuance of financial/ commercial credit 
+note, accordingly the tax charged from the recipient would also not get reduced. 
+Thus, it is clarified that the recipient will not be required to reverse the Input 
+Tax  Credit
+2
+  attributed  to  the  discount  provided  on  the  basis  of  financial/  
+commercial Credit notes issued by the supplier, as there is no reduction in the 
+original transaction value of the supply and accordingly the corresponding tax 
+liability would also not get reduced. 
+ 
+2
+ It may be noted that detailed provisions pertaining to reversal of input tax credit are outside the 
+scope of syllabus at Intermediate Level.  
+
+ 
+10 
+ 
+Issue: 
+Whether a post-sale discount offered by a manufacturer to its dealer/ distributor, 
+would  be  treated  as a  consideration  paid  by  the  manufacturer  for  the  dealer's  
+supply  of  the  same  goods  to  the  end  customer  as  a  monetary  value  of  the  
+inducement to supply of goods manufactured by him to the end customer? 
+Clarification: 
+Section  2  (31)  of  the  CGST  Act,  2017  defines  consideration  as  to  include  the  
+monetary value of any act for the inducement of the supply of goods or services, 
+whether by the recipient or by any other person. 
+In  cases  where  there  is  no  agreement  between  the  manufacturer  and  the  end  
+customer, there are two independent sale transactions, one from the manufacturer 
+to the dealer and the other from the dealer to the end customer.  
+The essence of the matter is that in a contract of sale, the sale is completed on the 
+transfer of title to the goods to the buyer. Once this happens, the buyer becomes 
+the owner of the goods, and the seller has no vestige of the title or claims therein. 
+The  dealer  takes  ownership  of  the  goods  purchased  from  the  manufacturer  and  
+subsequently  sells  them  to  the  end  customer  and  transaction  between  the  
+manufacturers to dealer operates on a principal-to-principal basis.  
+These discounts are simply given for competitive pricing to push sales and merely 
+reduce the sale price of the goods and are not linked to any independent activity 
+rendered to the manufacturer. Therefore, it is clarified that such a discount cannot 
+be included  in  consideration  as  the  monetary  value  of  the  inducement  of  further  
+supply of these goods. 
+However,  in  cases  where  the  manufacturer  has  some  agreement  with  an  end  
+customer  to  supply  goods  at  a  discounted  price,  the  manufacturer  may  issue  
+commercial or financial credit notes to the dealer, enabling such dealer to provide 
+the  goods  at  the  agreed  discounted  rate  to  the  end  consumer.  Therefore,  it  is  
+clarified that such a post-sale discount, given by the manufacturer to the dealer for 
+supplying goods to the end customer at a discounted rate, should be included in 
+the overall consideration as it is an inducement towards the supply of goods by the 
+dealer to the end customer. 
+  
+
+ 
+11 
+ 
+Issue:  
+Whether a post-sale discount extended by the manufacturer to the dealer can be 
+treated as a consideration in lieu of the activities performed to promote the sale of 
+the goods?  
+Clarification: 
+When dealers receive such post-sale  discounts,  they  may  engage  in  promotional  
+activities  to  boost  sales.  However,  these  activities  ultimately  enhance  the  sale  of  
+goods that the dealers themselves own, thereby increasing their own revenue. In 
+this  context,  the  discount  merely  reduces  the  sale  price  of  the  goods  and  is  not  
+linked  to  any  independent  service  rendered  to  the  manufacturer.  Therefore,  it  is  
+clarified that post-sale discounts offered by manufacturers to dealers in such cases 
+shall not be treated as consideration for a separate transaction of supply of services. 
+However, GST would be leviable in cases where a dealer undertakes specific sales 
+promotional activities, such as advertising campaigns, co-branding, customization 
+services,  special  sales  drives,  exhibition  arrangements,  or  customer  support  
+services, etc., only when such services are explicitly stated in the agreement with a 
+clearly defined consideration payable for such a supply. In such cases, the dealer 
+provides  a  distinct  service  to  the  supplier,  and  accordingly,  GST  would  be  
+chargeable. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+ 
+12 
+ 
+   
+ 
+ 
+CHAPTER 
+5 
+ 
+ 
+ 
+TAX DEDUCTION AT  
+SOURCE AND TAX 
+COLLECTION AT SOURCE 
+ 
+1. Amendments in the list of notified services tax on which is paid by the 
+electronic   commerce   operator   (ECO)   if   such   services   are   supplied   
+through it. 
+ The  Government  may,  on  the  recommendations  of  the  GST  Council,  notify 
+specific    categories    of    services    the    tax    
+[CGST/SGST/IGST] on supplies of which shall be 
+paid  by  the  electronic  commerce  operator 
+(ECO) if such services are supplied through it. 
+Such    services    shall    be    notified    on    the    
+recommendations of the GST Council.  
+Notification  No.  17/2017  CT  (R)  dated  28.06.2017/  Notification  No.  
+14/2017  IT  (R)  dated  28.06.2017  as  amended  has  notified  the  following  
+categories of services supplied through ECO for this purpose – 
+(a) services  by  way  of  transportation  of  passengers  by  a  radio-taxi, 
+motorcab,  maxicab,  motorcycle,  or any  other  motor  vehicle  except  
+omnibus;  
+(b) Services by way of transportation of passengers by an omnibus except 
+where the person supplying such service through ECO is a company**.
+ 
+(c) services  by  way  of  providing  accommodation  in  hotels,  inns,  guest  
+houses,   clubs,   campsites   or   other   commercial   places   meant   for   
+residential  or  lodging  purposes,  except  where  the  person  supplying  
+
+ 
+13 
+ 
+such   service   through   electronic   commerce   operator   is   liable   for   
+registration under section 22(1).  
+(d) services by way of house-keeping, such as plumbing, carpentering etc, 
+except  where  the  person  supplying  such  service  through  electronic  
+commerce operator is liable for registration under sub-section 22(1). 
+(e) supply  of  restaurant  service  other  than  the  services  supplied  by  
+restaurant, eating joints etc. located at specified premises. 
+(f) services by way of local delivery except where the person supplying 
+such  services  through  electronic  commerce  operator  is  liable  for  
+registration under sub section (1) of section 22 of the Central Goods 
+and Services Tax Act, 2017. 
+ **The tax on services by way of transportation of passengers by an omnibus 
+provided by a company through ECO is not payable by ECO. It will be payable 
+by the company itself. 
+[Effective from 22.09.2025] 
+[Notification No.17/2025 CT(R) and Notification No. 17/2025 IT(R) both 
+dated 17.09.2025] 
+ 
+  
+
+ 
+14 
+ 
+    
+ 
+ 
+CHAPTER 
+15 
+ 
+  
+ 
+  
+ 
+ 
+RETURNS 
+ 
+1. Filing of annual return exempted in specific case 
+ Section 44(1) of the CGST Act, 2017 provides that the Commissioner may, on 
+the  recommendations  of  the  Council,  by  notification,  exempt  any  class  of  
+registered persons from filing annual return under this section. 
+In exercise of above powers, the Commissioner, on the recommendations 
+of the Council, in respect of filing of annual return for the financial year 
+2024-25 onwards, has exempted the registered person whose aggregate 
+turnover in any financial year is up to two crore rupees, from filing annual 
+return that said financial year. 
+[Notification No. 15/2025 CT dated 17.09.2025] 
+ 
