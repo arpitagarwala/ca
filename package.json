@@ -1,15 +1,21 @@
 {
   "name": "ca-chatbot-worker",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "setup-index": "npx wrangler vectorize create ca-knowledge-vectors --dimensions=384 --metric=cosine",
+    "update": "node scrape-amendments.js",
+    "dev": "wrangler dev"
   },
   "devDependencies": {
     "wrangler": "^3.0.0"
   },
   "dependencies": {
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
     "node-fetch": "^2.6.9",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "uuid": "^9.0.0"
   }
 }
