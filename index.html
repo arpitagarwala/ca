@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>CA Bhaiya — Your GenZ CA Mentor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="CA Bhaiya is your GenZ CA Mentor. Fast, crisp, highly accurate answers for CA Foundation, Intermediate, and Final exams. Ask questions via Voice, text, or PDFs." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="description" content="CA Bhaiya is your GenZ CA Mentor. Fast, crisp, highly accurate answers for CA Foundation, Intermediate, and Final exams." />
   <meta name="author" content="Arpit Agarwala" />
   <link rel="canonical" href="https://ca.arpitagarwala.online/" />
   <meta property="og:title" content="CA Bhaiya — Your GenZ CA Mentor" />
@@ -19,253 +19,264 @@
   <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-    * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #0a0e1a; color: #f1f5f9; margin: 0; }
-    ::-webkit-scrollbar { width: 6px; }
+    :root {
+      --bg: #09090b;
+      --card: #141417;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --text-main: #fafafa;
+      --text-muted: #a1a1aa;
+      --border: rgba(255, 255, 255, 0.08);
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    body, html { 
+      height: 100%; height: 100dvh; 
+      margin: 0; padding: 0; 
+      background: var(--bg); 
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    #app {
+      height: 100%; width: 100%;
+      display: flex; flex-direction: column;
+      position: fixed; inset: 0;
+    }
+
+    /* Pinned Header */
+    header {
+      flex-shrink: 0;
+      background: rgba(9, 9, 11, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 100;
+    }
+
+    /* Scrollable Chat Area */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex; flex-direction: column; gap: 24px;
+      scroll-behavior: smooth;
+      background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.02));
+    }
+
+    /* Pinned Footer */
+    footer {
+      flex-shrink: 0;
+      background: rgba(9, 9, 11, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+
+    /* Modern Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-    .bg-grid {
-      background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-      position: fixed; inset: 0; z-index: 0; opacity: 0.6;
+    /* Premium Bubbles */
+    .msg-in { animation: msgFade 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes msgFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .user-bubble {
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      color: white; padding: 12px 18px; border-radius: 22px 22px 4px 22px;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+      max-width: 85%; align-self: flex-end; font-size: 15px; font-weight: 500;
     }
 
-    .chat-container {
-      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);
-      border: 1px solid rgba(99, 102, 241, 0.15); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    .bot-capsule {
+      display: flex; gap: 12px; max-width: 90%; align-self: flex-start;
+    }
+    .bot-avatar {
+      width: 32px; height: 32px; border-radius: 10px; background: var(--card);
+      border: 1px solid var(--border); flex-shrink: 0; overflow: hidden;
+    }
+    .bot-content {
+      background: var(--card); border: 1px solid var(--border);
+      padding: 16px; border-radius: 4px 22px 22px 22px;
+      color: #e4e4e7; line-height: 1.6; font-size: 15px;
     }
 
-    .msg-in { animation: msgSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes msgSlide { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    /* Bot Text Styling */
+    .bot-content p { margin: 0 0 12px 0; }
+    .bot-content p:last-child { margin-bottom: 0; }
+    .bot-content strong { color: #fff; font-weight: 700; }
+    .bot-content ul, .bot-content ol { padding-left: 20px; margin: 12px 0; }
+    .bot-content li { margin-bottom: 8px; }
+    .bot-content blockquote { border-left: 3px solid var(--accent); padding-left: 12px; color: var(--text-muted); margin: 12px 0; }
 
-    .dot-bounce { animation: bounce 1.2s infinite ease-in-out; }
-    .dot-bounce:nth-child(2) { animation-delay: 0.15s; }
-    .dot-bounce:nth-child(3) { animation-delay: 0.3s; }
-    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+    /* Input Styling */
+    .input-wrapper {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 24px; padding: 6px 6px 6px 14px;
+      display: flex; align-items: flex-end; gap: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-wrapper:focus-within {
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+    }
+    #chat-input {
+      flex: 1; background: transparent; border: none; outline: none;
+      color: #fff; font-size: 15px; padding: 10px 0;
+      resize: none; max-height: 120px; font-family: inherit;
+    }
+    .send-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--accent); color: white;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform 0.2s, background 0.2s;
+      border: none; flex-shrink: 0;
+    }
+    .send-btn:hover { background: var(--accent-hover); transform: scale(1.05); }
+    .send-btn:active { transform: scale(0.95); }
 
-    .bot-msg { font-size: 1.05rem; line-height: 1.7; letter-spacing: 0.01em; color: #f1f5f9; }
-    .bot-msg p { margin-bottom: 1rem; }
-    .bot-msg p:last-child { margin-bottom: 0; }
-    .bot-msg strong { color: #e0e7ff; font-weight: 700; background: rgba(99,102,241,0.1); padding: 0 4px; border-radius: 4px; }
-    .bot-msg ul { padding-left: 1.5rem; margin: 0.75rem 0; list-style-type: disc; }
-    .bot-msg ol { padding-left: 1.5rem; margin: 0.75rem 0; list-style-type: decimal; }
-    .bot-msg li { margin-bottom: 0.5rem; line-height: 1.6; }
-    .bot-msg li::marker { color: #818cf8; font-weight: bold; }
-    .bot-msg h1,.bot-msg h2,.bot-msg h3,.bot-msg h4 { font-weight: 800; color: #ffffff; margin-top: 1.5rem; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-    .bot-msg code { background: rgba(99,102,241,0.15); color: #a5b4fc; padding: 0.2rem 0.4rem; border-radius: 6px; font-size: 0.9em; font-family: monospace; border: 1px solid rgba(165,180,252,0.1); }
-    .bot-msg pre { background: #0b1120; padding: 1.25rem; border-radius: 12px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.08); margin: 1rem 0; }
-    .bot-msg pre code { background: transparent; padding: 0; border: none; font-size: 0.9em; }
-    .bot-msg table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 8px; overflow: hidden; margin: 1.5rem 0; font-size: 0.95em; border: 1px solid rgba(255,255,255,0.1); }
-    .bot-msg th { background: rgba(99,102,241,0.15); color: #e0e7ff; font-weight: 700; text-align: left; padding: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .bot-msg td { padding: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: #cbd5e1; }
-    .bot-msg tr:last-child td { border-bottom: none; }
-    .bot-msg tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-
-    .glow-pulse { animation: glow 2s infinite ease-in-out; border-color: #f87171 !important; color: #f87171 !important; }
-    @keyframes glow { 0%,100% { box-shadow: 0 0 5px rgba(248,113,113,0.3); } 50% { box-shadow: 0 0 15px rgba(248,113,113,0.6); } }
-
-    /* Attempt selector pill */
-    .attempt-pill {
+    /* Attempt Pill */
+    .pill-trigger {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.30);
-      border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 600;
-      color: #a5b4fc; cursor: pointer; transition: all 0.2s;
-      white-space: nowrap; user-select: none;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 99px;
+      font-size: 12px; font-weight: 600; color: var(--text-muted);
+      cursor: pointer; margin-bottom: 12px; transition: 0.2s;
     }
-    .attempt-pill:hover { background: rgba(99,102,241,0.22); border-color: rgba(99,102,241,0.55); color: #c7d2fe; }
-    .attempt-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #22d3ee; flex-shrink: 0; animation: pulse-dot 2s infinite; }
-    @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    .pill-trigger:hover { background: rgba(255,255,255,0.08); color: #fff; }
 
-    /* Attempt Dropdown Menu */
-    .close-area { position: fixed; inset: 0; z-index: 40; }
-    .attempt-menu {
-      position: absolute; bottom: calc(100% + 12px); left: 0; z-index: 50;
-      background: #0f172a; border: 1px solid rgba(99,102,241,0.25);
-      border-radius: 16px; padding: 12px; width: max-content; min-width: 240px;
-      box-shadow: 0 -4px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.1);
-      transform-origin: bottom left;
-      animation: scaleUp .15s cubic-bezier(.16,1,.3,1);
+    /* Dropdown UI */
+    .close-area { position: fixed; inset: 0; z-index: 101; }
+    .drop-menu {
+      position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 102;
+      background: #18181b; border: 1px solid var(--border);
+      border-radius: 16px; padding: 12px; width: 280px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      animation: menuSlide 0.2s ease-out;
     }
-    @keyframes scaleUp { from{transform:scale(0.95);opacity:0} to{transform:scale(1);opacity:1} }
-    .modal-heading { font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
-    .modal-option {
-      display: flex; align-items: center; padding: 10px 14px;
-      border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.03); cursor: pointer; transition: all 0.18s;
-      margin-bottom: 6px; font-size: 14px; font-weight: 500; color: #cbd5e1;
-      gap: 10px;
+    @keyframes menuSlide { from { opacity: 0; transform: translateY(5px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .menu-title { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; padding: 0 4px; }
+    .menu-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px;
+      border-radius: 10px; cursor: pointer; transition: 0.15s;
+      font-size: 14px; font-weight: 500; color: #d4d4d8; margin-bottom: 2px;
     }
-    .modal-option:hover { background: rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.3); color: #e0e7ff; }
-    .modal-option.selected { background: rgba(99,102,241,0.2); border-color: #6366f1; color: #a5b4fc; }
-    .modal-option .badge {
-      margin-left: auto; font-size: 10px; font-weight: 700; padding: 2px 7px;
-      border-radius: 999px; background: rgba(99,102,241,0.3); color: #a5b4fc; flex-shrink: 0;
-    }
+    .menu-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .menu-item.active { background: rgba(99, 102, 241, 0.1); color: var(--accent); }
+    .menu-item i { font-size: 16px; width: 20px; text-align: center; }
 
-    body, html { height: 100%; height: 100dvh; overflow: hidden; }
-    #app { height: 100%; display: flex; flex-direction: column; overflow: hidden; }
-    @media (max-width: 640px) {
-      #app { border-radius: 0; }
+    /* Typings */
+    .typing { display: flex; gap: 4px; padding: 4px 8px; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: dotPulse 1.4s infinite; opacity: 0.4; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotPulse { 0%,100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+
+    /* Utility */
+    .hidden { display: none !important; }
+    .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); }
+    
+    @media (min-width: 640px) {
+      main { padding: 40px 15%; }
+      header { padding: 16px 15%; }
+      footer { padding: 16px 15% 30px; }
     }
   </style>
 </head>
 
-<body class="w-full flex items-center justify-center sm:p-4 md:p-6 relative overflow-hidden h-[100dvh]">
-  <div class="bg-grid"></div>
-
-  <div id="app" class="z-10 w-full sm:max-w-4xl sm:rounded-[2rem] chat-container border-0 sm:border border-indigo-400/20 relative">
-
-    <!-- Header -->
-    <header class="px-4 sm:px-8 py-3 sm:py-5 border-b border-white/10 flex items-center justify-between bg-slate-900/95 backdrop-blur-md z-30 shrink-0 shadow-sm relative">
-      <div class="flex items-center gap-3 sm:gap-4">
-        <div class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-slate-800 flex items-center justify-center shadow-[0_0_20px_rgba(79,70,229,0.3)] border border-indigo-400/30 overflow-hidden">
-          <img src="logo.png" alt="CA Bhaiya Logo" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/w_100,h_100,c_fill,q_auto,f_png/v1772863840/tab-icon.png'" />
-          <span class="absolute -bottom-1 -right-1 w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 bg-emerald-400 border-2 border-slate-900 rounded-full"></span>
+<body>
+  <div id="app">
+    <header>
+      <div class="flex items-center gap-3">
+        <div class="bot-avatar">
+          <img src="logo.png" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/v1772863840/tab-icon.png'">
         </div>
         <div>
-          <h1 class="text-lg sm:text-2xl font-extrabold tracking-tight text-white leading-tight flex items-center gap-1.5 sm:gap-2">
-            CA Bhaiya <i class="ri-gemini-fill text-indigo-400 text-sm sm:text-base" title="AI Mentorship"></i>
-          </h1>
-          <p class="text-[11px] sm:text-[13px] text-indigo-300/80 font-medium tracking-wide">Your GenZ CA Mentor • Fast &amp; Crisp</p>
+          <div class="text-sm font-bold text-white">CA Bhaiya</div>
+          <div class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest">Exam Mentor</div>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <a href="https://arpitagarwala.online" target="_blank" class="hidden sm:flex text-xs font-semibold text-slate-400 hover:text-indigo-400 transition items-center gap-1 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/5">
-          <i class="ri-link"></i> By Arpit Agarwala
-        </a>
-        <button onclick="clearChat()" title="Start New Session" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition">
-          <i class="ri-refresh-line text-lg"></i>
-        </button>
-      </div>
+      <button onclick="clearChat()" class="p-2 text-zinc-400 hover:text-white transition">
+        <i class="ri-refresh-line text-lg"></i>
+      </button>
     </header>
 
-    <!-- Chat Area -->
-    <main id="chat-box" class="flex-1 px-3 sm:px-8 py-4 sm:py-6 overflow-y-auto flex flex-col gap-4 sm:gap-6 scroll-smooth bg-slate-900/40 relative">
-      <div class="flex items-start gap-3 sm:gap-4 msg-in max-w-[95%] sm:max-w-[85%]">
-        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 shrink-0 flex items-center justify-center sm:mt-1 border border-indigo-500/30 shadow-sm overflow-hidden">
-          <img src="logo.png" alt="AI" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/w_100,h_100,c_fill,q_auto,f_png/v1772863840/tab-icon.png'">
+    <main id="chat-box">
+      <div class="bot-capsule msg-in">
+        <div class="bot-avatar">
+          <img src="logo.png" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/v1772863840/tab-icon.png'">
         </div>
-        <div class="bg-slate-800/80 px-4 sm:px-6 py-4 sm:py-5 rounded-2xl rounded-tl-sm shadow-md border border-white/5 text-[14px] sm:text-[16px] bot-msg leading-relaxed w-full">
+        <div class="bot-content">
           <p>Hey! 👋 I'm <strong>CA Bhaiya</strong>.</p>
-          <p>I'm your GenZ CA mentor here to help you crack Foundation, Inter, or Final. Select your <strong>exam attempt</strong> below for laser-accurate amendment answers!</p>
-          <p>💡 <strong>Pro-tip:</strong> You can drop <strong>Voice Notes</strong> or upload <strong>PDFs &amp; Images</strong> to ask your doubts faster!</p>
-          <div class="flex flex-wrap gap-2 mt-4 pointer-events-auto border-t border-white/5 pt-4" id="suggestions">
-            <button onclick="useSuggestion('Explain AS-2 Valuation of Inventories')" class="text-[11px] sm:text-xs px-3 sm:px-3.5 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-indigo-500/20 hover:text-indigo-300 text-slate-300 transition font-medium">Explain AS-2</button>
-            <button onclick="useSuggestion('What are the latest GST amendments for my attempt?')" class="text-[11px] sm:text-xs px-3 sm:px-3.5 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-indigo-500/20 hover:text-indigo-300 text-slate-300 transition font-medium">GST Amendments</button>
-            <button onclick="useSuggestion('What changed in Income Tax for May 2026?')" class="text-[11px] sm:text-xs px-3 sm:px-3.5 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-indigo-500/20 hover:text-indigo-300 text-slate-300 transition font-medium">Income Tax Updates</button>
-          </div>
+          <p>I'm your GenZ CA mentor. Select your <strong>exam attempt</strong> below to get started with your preparation.</p>
         </div>
       </div>
     </main>
 
-    <!-- Typing Indicator -->
-    <div id="typing-indicator" class="hidden px-3 sm:px-8 pb-3 sm:pb-4 shrink-0">
-      <div class="flex items-end gap-3 sm:gap-4">
-        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 shrink-0 flex items-center justify-center border border-indigo-500/30 overflow-hidden">
-          <img src="logo.png" alt="AI" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/w_100,h_100,c_fill,q_auto,f_png/v1772863840/tab-icon.png'">
+    <div id="typing-indicator" class="hidden px-4 sm:px-[15%] pb-4">
+      <div class="bot-capsule">
+        <div class="bot-avatar">
+          <img src="logo.png" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/v1772863840/tab-icon.png'">
         </div>
-        <div class="bg-slate-800/90 backdrop-blur px-5 py-4 rounded-2xl rounded-bl-sm shadow-md border border-white/5 flex gap-1.5 items-center">
-          <div class="w-2 h-2 bg-indigo-400 rounded-full dot-bounce"></div>
-          <div class="w-2 h-2 bg-indigo-400 rounded-full dot-bounce"></div>
-          <div class="w-2 h-2 bg-indigo-400 rounded-full dot-bounce"></div>
+        <div class="typing glass rounded-full">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
         </div>
       </div>
     </div>
 
-    <!-- Footer / Input Area -->
-    <footer class="px-3 sm:px-8 py-3 sm:py-4 bg-slate-900 border-t border-white/10 shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-20 relative">
-
-      <!-- Attachment preview -->
-      <div id="attachment-preview" class="hidden absolute -top-12 left-3 sm:left-8 bg-indigo-900/60 backdrop-blur border border-indigo-500/30 rounded-lg px-3 py-1.5 flex items-center gap-3 shadow-lg transform -translate-y-2">
-        <div class="flex items-center gap-2">
-          <i id="attach-icon" class="ri-file-line text-indigo-300"></i>
-          <span id="attach-name" class="text-[11px] sm:text-xs text-indigo-100 font-medium max-w-[120px] sm:max-w-[200px] truncate"></span>
-        </div>
-        <button type="button" onclick="clearAttachment()" class="text-indigo-400 hover:text-red-400"><i class="ri-close-line"></i></button>
-      </div>
-
-      <!-- Attempt Selector Pill & Menu -->
-      <div class="flex items-center gap-2 mb-2 px-1 relative">
-        <button id="attempt-pill-btn" onclick="openAttemptModal()" class="attempt-pill" title="Select your exam attempt for targeted answers">
-          <span class="dot"></span>
-          <i class="ri-graduation-cap-line" style="font-size:13px"></i>
+    <footer>
+      <div class="relative">
+        <button id="attempt-pill-btn" onclick="openAttemptModal()" class="pill-trigger">
+          <i class="ri-graduation-cap-line"></i>
           <span id="pill-label">Select Attempt</span>
-          <i class="ri-arrow-up-s-line" style="font-size:13px; opacity:0.6"></i>
+          <i class="ri-arrow-up-s-line opacity-50"></i>
         </button>
-        <span class="text-[10px] text-slate-600 hidden sm:block">← pick your exam attempt for precise amendment answers</span>
 
-        <!-- Dropdown Menu -->
         <div id="attempt-menu-overlay" class="close-area hidden" onclick="closeAttemptModal()"></div>
-        <div id="attempt-menu" class="attempt-menu hidden">
-          <!-- Step 1: Pick Level -->
+        <div id="attempt-menu" class="drop-menu hidden">
           <div id="modal-step-1">
-            <div class="modal-heading">📚 Select your CA Level</div>
+            <div class="menu-title">Select CA Level</div>
             <div id="level-options"></div>
           </div>
-          <!-- Step 2: Pick Attempt -->
           <div id="modal-step-2" class="hidden">
-            <button onclick="goBackToStep1()" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-indigo-400 transition mb-3 font-medium">
-              <i class="ri-arrow-left-s-line"></i> Change level
+            <button onclick="goBackToStep1()" class="text-[10px] font-bold text-indigo-400 flex items-center gap-1 mb-2 px-1">
+              <i class="ri-arrow-left-s-line"></i> BACK TO LEVELS
             </button>
-            <div class="modal-heading">📅 Select your Exam Attempt</div>
+            <div class="menu-title">Exam Attempt</div>
             <div id="attempt-options"></div>
           </div>
         </div>
       </div>
 
-      <!-- Input form -->
-      <form id="chat-form" class="relative flex items-end gap-1.5 sm:gap-3 bg-slate-800 border border-slate-700/60 focus-within:border-indigo-500/50 focus-within:ring-2 focus-within:ring-indigo-500/20 rounded-2xl transition-all p-1.5 sm:p-2">
-        <input type="file" id="file-input" class="hidden" accept="image/*,application/pdf" />
-        <button type="button" id="attach-btn" title="Attach PDF/Image" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl text-slate-400 hover:text-indigo-400 hover:bg-white/5 flex items-center justify-center transition mb-0.5 sm:mb-1"><i class="ri-attachment-2 text-lg sm:text-xl"></i></button>
-        <button type="button" id="mic-btn" title="Voice Dictation" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl text-slate-400 hover:text-indigo-400 hover:bg-white/5 flex items-center justify-center transition mb-0.5 sm:mb-1"><i class="ri-mic-2-fill text-lg sm:text-xl"></i></button>
-        <textarea id="chat-input" rows="1" placeholder="Type, mic, or attach..."
-          class="flex-1 bg-transparent border-none outline-none resize-none px-1 sm:px-2 py-2 sm:py-3 text-slate-200 placeholder-slate-500 text-[14px] sm:text-base leading-relaxed max-h-[100px] sm:max-h-32"
-          autocomplete="off"></textarea>
-        <button type="submit" id="send-btn" title="Send message" class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white flex items-center justify-center transition shadow-[0_0_15px_rgba(79,70,229,0.3)] self-end mb-0.5 sm:mb-1"><i class="ri-send-plane-2-fill text-lg sm:text-xl transform flex translate-x-px translate-y-px"></i></button>
+      <form id="chat-form" class="input-wrapper">
+        <textarea id="chat-input" rows="1" placeholder="Ask anything..." autocomplete="off"></textarea>
+        <button type="submit" id="send-btn" class="send-btn">
+          <i class="ri-send-plane-2-fill text-lg"></i>
+        </button>
       </form>
-      <div class="flex items-center justify-center mt-2 gap-1 opacity-80">
-        <span class="text-[9px] sm:text-xs text-slate-500 font-medium">Powered by</span>
-        <span class="text-[9px] sm:text-xs text-indigo-400 font-bold tracking-wide">Groq • Llama 3 • Cloudflare</span>
-      </div>
     </footer>
   </div>
 
-
   <script>
     const WORKER_URL = 'https://ca-chatbot.arpitagarwala.workers.dev';
-
-    // ─── Exam config: levels & attempts ────────────────────────────────────────
     const EXAM_CONFIG = {
-      foundation: {
-        label: 'CA Foundation',
-        icon: 'ri-book-open-line',
-        badge: 'Foundation',
-        attempts: ['Jun 2026','Mar 2026','Jan 2026','Sep 2025','Jun 2025','Mar 2025'],
-      },
-      intermediate: {
-        label: 'CA Intermediate',
-        icon: 'ri-building-line',
-        badge: 'Inter',
-        attempts: ['Sep 2026','May 2026','Jan 2026','Sep 2025','May 2025'],
-      },
-      final: {
-        label: 'CA Final',
-        icon: 'ri-trophy-line',
-        badge: 'Final',
-        attempts: ['Nov 2026','May 2026','Nov 2025','May 2025'],
-      },
+      foundation: { label: 'CA Foundation', icon: 'ri-book-open-line', badge: 'Foundation', attempts: ['Jun 2026','Mar 2026','Jan 2026','Sep 2025','Jun 2025','Mar 2025'] },
+      intermediate: { label: 'CA Intermediate', icon: 'ri-building-line', badge: 'Inter', attempts: ['Sep 2026','May 2026','Jan 2026','Sep 2025','May 2025'] },
+      final: { label: 'CA Final', icon: 'ri-trophy-line', badge: 'Final', attempts: ['Nov 2026','May 2026','Nov 2025','May 2025'] },
     };
 
-    // ─── State ──────────────────────────────────────────────────────────────────
     let conversationHistory = [];
     let isProcessing = false;
-    let currentAttachment = { type: null, data: null, name: null };
     let selectedLevel   = localStorage.getItem('ca_level')   || 'all';
     let selectedAttempt = localStorage.getItem('ca_attempt') || 'Latest';
     let pendingLevel = null;
@@ -277,24 +288,14 @@
     const chatInput = document.getElementById('chat-input');
     const sendBtn   = document.getElementById('send-btn');
     const typingDiv = document.getElementById('typing-indicator');
-    const attachBtn = document.getElementById('attach-btn');
-    const fileInput = document.getElementById('file-input');
-    const micBtn    = document.getElementById('mic-btn');
-    const attachPreview = document.getElementById('attachment-preview');
-    const attachIcon    = document.getElementById('attach-icon');
-    const attachName    = document.getElementById('attach-name');
 
-    // ─── Update pill label ──────────────────────────────────────────────────────
     function updatePill() {
       const levelLabel = selectedLevel !== 'all' ? EXAM_CONFIG[selectedLevel]?.badge : null;
-      const txt = levelLabel
-        ? `${levelLabel} • ${selectedAttempt}`
-        : (selectedAttempt !== 'Latest' ? selectedAttempt : 'Select Attempt');
+      const txt = levelLabel ? `${levelLabel} • ${selectedAttempt}` : (selectedAttempt !== 'Latest' ? selectedAttempt : 'Select Attempt');
       document.getElementById('pill-label').textContent = txt;
     }
     updatePill();
 
-    // ─── Attempt Modal ──────────────────────────────────────────────────────────
     function openAttemptModal() {
       pendingLevel = null;
       document.getElementById('modal-step-1').classList.remove('hidden');
@@ -312,17 +313,16 @@
     function renderLevelOptions() {
       const container = document.getElementById('level-options');
       container.innerHTML = '';
-      // First option: All levels
       const allDiv = document.createElement('div');
-      allDiv.className = 'modal-option' + (selectedLevel === 'all' ? ' selected' : '');
-      allDiv.innerHTML = `<i class="ri-apps-line"></i> All Levels <span class="badge">General</span>`;
+      allDiv.className = 'menu-item' + (selectedLevel === 'all' ? ' active' : '');
+      allDiv.innerHTML = `<i class="ri-apps-line"></i> All Levels`;
       allDiv.onclick = () => selectLevel('all');
       container.appendChild(allDiv);
 
       Object.entries(EXAM_CONFIG).forEach(([key, cfg]) => {
         const div = document.createElement('div');
-        div.className = 'modal-option' + (selectedLevel === key ? ' selected' : '');
-        div.innerHTML = `<i class="${cfg.icon}"></i> ${cfg.label} <span class="badge">${cfg.badge}</span>`;
+        div.className = 'menu-item' + (selectedLevel === key ? ' active' : '');
+        div.innerHTML = `<i class="${cfg.icon}"></i> ${cfg.label}`;
         div.onclick = () => selectLevel(key);
         container.appendChild(div);
       });
@@ -354,18 +354,16 @@
       const cfg = EXAM_CONFIG[levelKey];
       const container = document.getElementById('attempt-options');
       container.innerHTML = '';
-
-      // Latest option
       const latestDiv = document.createElement('div');
-      latestDiv.className = 'modal-option' + (selectedLevel === levelKey && selectedAttempt === 'Latest' ? ' selected' : '');
-      latestDiv.innerHTML = `<i class="ri-sparkling-2-line text-indigo-400"></i> Latest Updates <span class="badge" style="background:rgba(34,211,238,0.2);color:#22d3ee">Latest</span>`;
+      latestDiv.className = 'menu-item' + (selectedLevel === levelKey && selectedAttempt === 'Latest' ? ' active' : '');
+      latestDiv.innerHTML = `<i class="ri-sparkling-2-line"></i> Latest Updates`;
       latestDiv.onclick = () => confirmSelection(levelKey, 'Latest');
       container.appendChild(latestDiv);
 
-      cfg.attempts.forEach((att, i) => {
+      cfg.attempts.forEach((att) => {
         const div = document.createElement('div');
-        div.className = 'modal-option' + (selectedLevel === levelKey && selectedAttempt === att ? ' selected' : '');
-        div.innerHTML = `<i class="ri-calendar-line"></i> ${att} ${i === 0 ? '<span class="badge" style="background:rgba(99,102,241,0.3);color:#a5b4fc">Upcoming</span>' : ''}`;
+        div.className = 'menu-item' + (selectedLevel === levelKey && selectedAttempt === att ? ' active' : '');
+        div.innerHTML = `<i class="ri-calendar-line"></i> ${att}`;
         div.onclick = () => confirmSelection(levelKey, att);
         container.appendChild(div);
       });
@@ -380,14 +378,12 @@
       closeAttemptModal();
     }
 
-    // ─── Helpers ────────────────────────────────────────────────────────────────
     chatInput.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; });
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chatForm.dispatchEvent(new Event('submit')); } });
     function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
     function scrollToBottom() { requestAnimationFrame(() => chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: 'smooth' })); }
     function setTyping(show) { typingDiv.classList.toggle('hidden', !show); if (show) scrollToBottom(); }
 
-    // ─── HTML-Aware Typewriter ──────────────────────────────────────────────────
     async function typeHTML(targetEl, html, speed = 7) {
       const tmp = document.createElement('div');
       tmp.innerHTML = html;
@@ -411,97 +407,47 @@
       for (const root of Array.from(tmp.childNodes)) await typeNode(root, targetEl);
     }
 
-    // ─── Messages ───────────────────────────────────────────────────────────────
     function addMessage(role, text) {
       const w = document.createElement('div');
       w.className = 'msg-in w-full flex ' + (role === 'user' ? 'justify-end' : '');
 
-      let attachHtml = '';
-      if (role === 'user' && currentAttachment.name) {
-        const icon = currentAttachment.type === 'pdf' ? 'ri-file-pdf-fill text-red-300' : 'ri-image-fill text-blue-300';
-        attachHtml = `<div class="bg-indigo-700/50 border border-indigo-400/30 rounded px-2 py-1 mb-2 text-xs flex items-center gap-1.5"><i class="${icon}"></i> ${escapeHtml(currentAttachment.name)}</div>`;
-      }
-
       if (role === 'user') {
-        w.innerHTML = `<div class="bg-indigo-600 text-white px-5 py-3.5 sm:px-6 sm:py-4 rounded-2xl rounded-tr-sm shadow-md max-w-[90%] sm:max-w-[80%] text-[15px] sm:text-base leading-relaxed">${attachHtml}${escapeHtml(text).replace(/\n/g,'<br>')}</div>`;
+        w.innerHTML = `<div class="user-bubble">${escapeHtml(text).replace(/\n/g,'<br>')}</div>`;
         chatBox.appendChild(w);
         scrollToBottom();
       } else {
-        w.innerHTML = `<div class="flex items-start gap-4 max-w-[95%] sm:max-w-[85%]">
-          <div class="w-10 h-10 rounded-full bg-slate-800 shrink-0 flex items-center justify-center mt-1 border border-indigo-500/30 shadow-sm overflow-hidden">
-            <img src="logo.png" alt="AI" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/w_100,h_100,c_fill,q_auto,f_png/v1772863840/tab-icon.png'">
+        w.innerHTML = `<div class="bot-capsule">
+          <div class="bot-avatar">
+            <img src="logo.png" alt="AI" class="w-full h-full object-cover" onerror="this.src='https://res.cloudinary.com/dxsja3wy5/image/upload/v1772863840/tab-icon.png'">
           </div>
-          <div class="bot-content-wrapper bg-slate-800/80 px-6 py-5 rounded-2xl rounded-tl-sm shadow-md border border-white/5 text-[15px] sm:text-[16px] bot-msg w-full overflow-x-auto"></div>
+          <div class="bot-content overflow-x-auto"></div>
         </div>`;
         chatBox.appendChild(w);
-        return typeHTML(w.querySelector('.bot-content-wrapper'), marked.parse(text));
+        return typeHTML(w.querySelector('.bot-content'), marked.parse(text));
       }
     }
 
-    // ─── Attachments ─────────────────────────────────────────────────────────────
-    window.clearAttachment = () => { currentAttachment = { type:null, data:null, name:null }; attachPreview.classList.add('hidden'); fileInput.value=''; };
-    window.showAttachmentPreview = (iconClass, name) => { attachIcon.className = iconClass+' text-indigo-300 text-lg'; attachName.textContent = name; attachPreview.classList.remove('hidden'); };
+    window.clearChat = () => { conversationHistory=[]; chatBox.innerHTML=''; addMessage('bot','Session cleared! Fresh start ready. 🚀'); };
 
-    attachBtn.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', async e => {
-      const file = e.target.files[0]; if (!file) return;
-      attachBtn.classList.add('animate-pulse');
-      try {
-        if (file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = e2 => { currentAttachment = { type:'image', data:e2.target.result, name:file.name }; showAttachmentPreview('ri-image-2-line', file.name); attachBtn.classList.remove('animate-pulse'); chatInput.focus(); };
-          reader.readAsDataURL(file);
-        } else if (file.type === 'application/pdf') {
-          const ab = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: ab }).promise;
-          let text = '';
-          for (let i = 1; i <= pdf.numPages; i++) { const pg = await pdf.getPage(i); const ct = await pg.getTextContent(); text += ct.items.map(it => it.str).join(' ') + '\n'; }
-          currentAttachment = { type:'pdf', data:text.trim().substring(0,10000), name:file.name };
-          showAttachmentPreview('ri-file-pdf-line text-red-400', file.name); attachBtn.classList.remove('animate-pulse'); chatInput.focus();
-        } else { alert('Only Images and PDFs are supported.'); attachBtn.classList.remove('animate-pulse'); }
-      } catch { alert('Could not process file.'); attachBtn.classList.remove('animate-pulse'); }
-    });
-
-    // ─── Voice ───────────────────────────────────────────────────────────────────
-    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRec) {
-      const rec = new SpeechRec(); rec.continuous = false; rec.interimResults = true; let isRec = false;
-      micBtn.addEventListener('click', () => { if (isRec) { rec.stop(); return; } rec.start(); });
-      rec.onstart = () => { isRec=true; micBtn.classList.add('glow-pulse'); chatInput.placeholder='Listening...'; };
-      rec.onresult = e => { let t=''; for (let i=e.resultIndex;i<e.results.length;++i) if(e.results[i].isFinal) t+=e.results[i][0].transcript; if(t) { chatInput.value+=(chatInput.value?' ':'')+t; chatInput.style.height='auto'; chatInput.style.height=chatInput.scrollHeight+'px'; } };
-      rec.onend = () => { isRec=false; micBtn.classList.remove('glow-pulse'); chatInput.placeholder='Type, mic, or attach...'; chatInput.focus(); };
-    } else { micBtn.style.display='none'; }
-
-    // ─── Suggestions & Clear ──────────────────────────────────────────────────────
-    window.useSuggestion = t => { document.getElementById('suggestions')?.remove(); chatInput.value = t; chatForm.dispatchEvent(new Event('submit')); };
-    window.clearChat = () => { conversationHistory=[]; chatBox.innerHTML=''; addMessage('bot','Session cleared! Fresh start ready. 🚀'); clearAttachment(); };
-
-    // ─── Submit ──────────────────────────────────────────────────────────────────
     chatForm.addEventListener('submit', async e => {
       e.preventDefault();
       const val = chatInput.value.trim();
-      if ((!val && !currentAttachment.data) || isProcessing) return;
+      if (!val || isProcessing) return;
 
-      document.getElementById('suggestions')?.remove();
       isProcessing = true; sendBtn.disabled = true; chatInput.disabled = true;
       chatInput.value = ''; chatInput.style.height = 'auto';
 
-      const userText = val || '[Sent an attachment]';
-      addMessage('user', userText);
-      conversationHistory.push({ role:'user', text: userText });
-
-      const payloadImage = currentAttachment.type === 'image' ? currentAttachment.data : null;
-      const payloadPdf   = currentAttachment.type === 'pdf'   ? currentAttachment.data : null;
-      clearAttachment(); setTyping(true);
+      addMessage('user', val);
+      conversationHistory.push({ role:'user', text: val });
+      setTyping(true);
 
       try {
         const res = await fetch(WORKER_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            query:       userText,
+            query:       val,
             history:     conversationHistory.slice(-8),
-            image_url:   payloadImage,
-            pdf_context: payloadPdf,
             level:       selectedLevel,
             attempt:     selectedAttempt,
           }),
