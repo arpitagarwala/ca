@@ -82,21 +82,17 @@
     .attempt-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #22d3ee; flex-shrink: 0; animation: pulse-dot 2s infinite; }
     @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
-    /* Attempt modal */
-    .attempt-modal-overlay {
-      position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-      padding-bottom: 90px; /* clear the footer */
-      animation: fadeIn .15s ease;
-    }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    .attempt-modal {
+    /* Attempt Dropdown Menu */
+    .close-area { position: fixed; inset: 0; z-index: 40; }
+    .attempt-menu {
+      position: absolute; bottom: calc(100% + 12px); left: 0; z-index: 50;
       background: #0f172a; border: 1px solid rgba(99,102,241,0.25);
-      border-radius: 20px; padding: 20px 20px 18px; width: min(420px, 92vw);
-      box-shadow: 0 -4px 60px rgba(99,102,241,0.2);
-      animation: slideUp .2s cubic-bezier(.16,1,.3,1);
+      border-radius: 16px; padding: 12px; width: max-content; min-width: 240px;
+      box-shadow: 0 -4px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.1);
+      transform-origin: bottom left;
+      animation: scaleUp .15s cubic-bezier(.16,1,.3,1);
     }
-    @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+    @keyframes scaleUp { from{transform:scale(0.95);opacity:0} to{transform:scale(1);opacity:1} }
     .modal-heading { font-size: 13px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
     .modal-option {
       display: flex; align-items: center; padding: 10px 14px;
@@ -112,13 +108,10 @@
       border-radius: 999px; background: rgba(99,102,241,0.3); color: #a5b4fc; flex-shrink: 0;
     }
 
-    @supports (height: 100dvh) {
-      body, #app { height: 100dvh; }
-    }
+    body, html { height: 100%; height: 100dvh; overflow: hidden; }
     #app { height: 100%; display: flex; flex-direction: column; overflow: hidden; }
     @media (max-width: 640px) {
-      body { position: fixed; inset: 0; width: 100%; overflow: hidden; }
-      #app { height: 100%; border-radius: 0; }
+      #app { border-radius: 0; }
     }
   </style>
 </head>
@@ -197,8 +190,8 @@
         <button type="button" onclick="clearAttachment()" class="text-indigo-400 hover:text-red-400"><i class="ri-close-line"></i></button>
       </div>
 
-      <!-- Attempt Selector Pill (sits above the input box) -->
-      <div class="flex items-center gap-2 mb-2 px-1">
+      <!-- Attempt Selector Pill & Menu -->
+      <div class="flex items-center gap-2 mb-2 px-1 relative">
         <button id="attempt-pill-btn" onclick="openAttemptModal()" class="attempt-pill" title="Select your exam attempt for targeted answers">
           <span class="dot"></span>
           <i class="ri-graduation-cap-line" style="font-size:13px"></i>
@@ -206,6 +199,24 @@
           <i class="ri-arrow-up-s-line" style="font-size:13px; opacity:0.6"></i>
         </button>
         <span class="text-[10px] text-slate-600 hidden sm:block">← pick your exam attempt for precise amendment answers</span>
+
+        <!-- Dropdown Menu -->
+        <div id="attempt-menu-overlay" class="close-area hidden" onclick="closeAttemptModal()"></div>
+        <div id="attempt-menu" class="attempt-menu hidden">
+          <!-- Step 1: Pick Level -->
+          <div id="modal-step-1">
+            <div class="modal-heading">📚 Select your CA Level</div>
+            <div id="level-options"></div>
+          </div>
+          <!-- Step 2: Pick Attempt -->
+          <div id="modal-step-2" class="hidden">
+            <button onclick="goBackToStep1()" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-indigo-400 transition mb-3 font-medium">
+              <i class="ri-arrow-left-s-line"></i> Change level
+            </button>
+            <div class="modal-heading">📅 Select your Exam Attempt</div>
+            <div id="attempt-options"></div>
+          </div>
+        </div>
       </div>
 
       <!-- Input form -->
@@ -220,29 +231,11 @@
       </form>
       <div class="flex items-center justify-center mt-2 gap-1 opacity-80">
         <span class="text-[9px] sm:text-xs text-slate-500 font-medium">Powered by</span>
-        <span class="text-[9px] sm:text-xs text-indigo-400 font-bold tracking-wide">Groq • ICAI RAG • Vectorize</span>
+        <span class="text-[9px] sm:text-xs text-indigo-400 font-bold tracking-wide">Groq • Llama 3 • Cloudflare</span>
       </div>
     </footer>
   </div>
 
-  <!-- ═══════════════════════ ATTEMPT SELECTION MODAL ═══════════════════════ -->
-  <div id="attempt-modal-overlay" class="attempt-modal-overlay hidden" onclick="handleOverlayClick(event)">
-    <div class="attempt-modal" id="attempt-modal">
-      <!-- Step 1: Pick Level -->
-      <div id="modal-step-1">
-        <div class="modal-heading">📚 Select your CA Level</div>
-        <div id="level-options"></div>
-      </div>
-      <!-- Step 2: Pick Attempt -->
-      <div id="modal-step-2" class="hidden">
-        <button onclick="goBackToStep1()" class="flex items-center gap-1.5 text-xs text-slate-500 hover:text-indigo-400 transition mb-3 font-medium">
-          <i class="ri-arrow-left-s-line"></i> Change level
-        </button>
-        <div class="modal-heading">📅 Select your Exam Attempt</div>
-        <div id="attempt-options"></div>
-      </div>
-    </div>
-  </div>
 
   <script>
     const WORKER_URL = 'https://ca-chatbot.arpitagarwala.workers.dev';
@@ -307,15 +300,13 @@
       document.getElementById('modal-step-1').classList.remove('hidden');
       document.getElementById('modal-step-2').classList.add('hidden');
       renderLevelOptions();
-      document.getElementById('attempt-modal-overlay').classList.remove('hidden');
+      document.getElementById('attempt-menu-overlay').classList.remove('hidden');
+      document.getElementById('attempt-menu').classList.remove('hidden');
     }
 
     function closeAttemptModal() {
-      document.getElementById('attempt-modal-overlay').classList.add('hidden');
-    }
-
-    function handleOverlayClick(e) {
-      if (e.target === document.getElementById('attempt-modal-overlay')) closeAttemptModal();
+      document.getElementById('attempt-menu-overlay').classList.add('hidden');
+      document.getElementById('attempt-menu').classList.add('hidden');
     }
 
     function renderLevelOptions() {
