@@ -72,16 +72,12 @@ async function retrieveContext(query, level, attempt, env) {
     return [];
   }
 
-  // Build metadata filter — always filter by level if specified
-  const filter = {};
-  if (level && level !== 'all') filter.level = { $eq: level };
-
+  // Fetch broadly from VectorDB, bypassing buggy internal unindexed filters
   let matches;
   try {
     const res = await env.VECTORIZE.query(queryVec, {
-      topK: TOP_K,
-      returnMetadata: 'all',
-      filter: Object.keys(filter).length ? filter : undefined,
+      topK: 50,
+      returnMetadata: 'all'
     });
     matches = res.matches;
   } catch (e) {
@@ -90,13 +86,17 @@ async function retrieveContext(query, level, attempt, env) {
 
   if (!matches || matches.length === 0) return [];
 
-  // ── Cumulative Amendment Logic ──────────────────────────────────────────────
+  // ── Local Post-Filtering & Cumulative Amendment Logic ───────────────────
+  // Filter manually to avoid Cloudflare Vectorize metadata indexing restrictions
+  let filtered = matches;
+  if (level && level !== 'all') {
+    filtered = matches.filter(m => m.metadata && m.metadata.level === level);
+  }
+
   // All versions of all laws are kept in context, but sorted so the LATEST
   // amendment appears first. The system prompt instructs the LLM to treat the
-  // latest-dated source as currently in force, overriding earlier versions only
-  // where explicitly contradicted. Previous-attempt amendments that are NOT
-  // contradicted by a newer one remain fully valid.
-  const ranked = matches
+  // latest-dated source as currently in force.
+  const ranked = filtered
     .map(m => ({
       score:         m.score,
       text:          m.metadata.content || m.metadata.text || '',  // fallback
@@ -137,6 +137,8 @@ function buildSystemPrompt(contextChunks, level, attempt) {
     : 'No specific RAG context found — rely on your comprehensive CA knowledge.';
 
   return `You are "CA Bhaiya" — a highly knowledgeable GenZ Chartered Accountant created by Arpit Agarwala. You mentor ${levelStr} students appearing for the ${attemptStr} attempt in India.
+
+CRITICAL INSTRUCTION: If a student asks for the latest amendments or statutory updates for ${attemptStr}, DO NOT HALLUCINATE older legacy amendments from 2020, 2021, or 2022 and claim they belong to ${attemptStr}. If the provided RAG Context below does NOT contain relevant recent amendments for ${attemptStr}, simply say: "I couldn't find the exact amendments for ${attemptStr} in the official ICAI Knowledge Base." Do not invent them!
 
 YOUR PERSONA & RESPONSE RULES:
 1. GenZ, relatable, approachable — crisp explanations like that smart senior who's already cracked the exam.
