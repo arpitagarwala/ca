@@ -173,12 +173,18 @@
     .menu-item.active { background: rgba(99, 102, 241, 0.1); color: var(--accent); }
     .menu-item i { font-size: 16px; width: 20px; text-align: center; }
 
-    /* Typings */
+    /* Typings & Voice */
     .typing { display: flex; gap: 4px; padding: 4px 8px; }
     .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: dotPulse 1.4s infinite; opacity: 0.4; }
     .dot:nth-child(2) { animation-delay: 0.2s; }
     .dot:nth-child(3) { animation-delay: 0.4s; }
     @keyframes dotPulse { 0%,100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+
+    .glow-pulse { animation: glow 1.5s infinite ease-in-out; color: #f87171 !important; }
+    @keyframes glow { 0%,100% { text-shadow: 0 0 5px rgba(248,113,113,0.3); transform: scale(1); } 50% { text-shadow: 0 0 15px rgba(248,113,113,0.8); transform: scale(1.1); } }
+    
+    .mic-btn { color: var(--text-muted); cursor: pointer; transition: 0.2s; padding: 10px 4px; display: flex; align-items: center; justify-content: center; }
+    .mic-btn:hover { color: var(--accent); }
 
     /* Utility */
     .hidden { display: none !important; }
@@ -259,6 +265,9 @@
       </div>
 
       <form id="chat-form" class="input-wrapper">
+        <button type="button" id="mic-btn" class="mic-btn" title="Voice Dictation">
+          <i class="ri-mic-2-fill text-xl"></i>
+        </button>
         <textarea id="chat-input" rows="1" placeholder="Ask anything..." autocomplete="off"></textarea>
         <button type="submit" id="send-btn" class="send-btn">
           <i class="ri-send-plane-2-fill text-lg"></i>
@@ -380,6 +389,27 @@
 
     chatInput.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; });
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chatForm.dispatchEvent(new Event('submit')); } });
+    
+    const micBtn = document.getElementById('mic-btn');
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRec) {
+      const rec = new SpeechRec(); rec.continuous = false; rec.interimResults = true; let isRec = false;
+      micBtn.addEventListener('click', () => { if (isRec) { rec.stop(); return; } rec.start(); });
+      rec.onstart = () => { isRec=true; micBtn.classList.add('glow-pulse'); chatInput.placeholder='Listening...'; };
+      rec.onresult = e => { 
+        let t=''; 
+        for (let i=e.resultIndex;i<e.results.length;++i) if(e.results[i].isFinal) t+=e.results[i][0].transcript; 
+        if(t) { 
+          chatInput.value+=(chatInput.value?' ':'')+t; 
+          chatInput.style.height='auto'; 
+          chatInput.style.height=chatInput.scrollHeight+'px'; 
+        } 
+      };
+      rec.onend = () => { isRec=false; micBtn.classList.remove('glow-pulse'); chatInput.placeholder='Ask anything...'; chatInput.focus(); };
+    } else { micBtn.style.display='none'; }
+
+    window.useSuggestion = t => { document.getElementById('suggestions')?.remove(); chatInput.value = t; chatForm.dispatchEvent(new Event('submit')); };
+
     function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
     function scrollToBottom() { requestAnimationFrame(() => chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: 'smooth' })); }
     function setTyping(show) { typingDiv.classList.toggle('hidden', !show); if (show) scrollToBottom(); }

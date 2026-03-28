@@ -9,10 +9,11 @@
 
 const GROQ_URL   = 'https://api.groq.com/openai/v1/chat/completions';
 const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
-const NVIDIA_EMBED_URL = 'https://integrate.api.nvidia.com/v1/embeddings';
-const EMBED_MODEL = 'baai/bge-m3';  // 1024-dim — must match scraper
+const NV_EMBED_URL = 'https://integrate.api.nvidia.com/v1/embeddings';
+const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const EMBED_MODEL = 'baai/bge-m3'; 
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
-const GROQ_FAST  = 'llama3-8b-8192';
+const OPENROUTER_MODEL = 'meta-llama/llama-3.3-70b-instruct';
 const NVIDIA_VISION_MODEL = 'google/gemma-3-27b-it';
 const TOP_K = 15;
 const MAX_HISTORY = 8;
@@ -136,97 +137,53 @@ function buildSystemPrompt(contextChunks, level, attempt) {
       ).join('\n\n---\n\n')
     : 'No specific ICAI context found — rely on your comprehensive CA knowledge.';
 
-  return `You are "CA Bhaiya" — a highly knowledgeable GenZ Chartered Accountant created by Arpit Agarwala. You mentor ${levelStr} students appearing for the ${attemptStr} attempt in India.
+    return `You are "CA Bhaiya" — a highly knowledgeable GenZ Chartered Accountant created by Arpit Agarwala. You mentor ${levelStr} students in India for the ${attemptStr} attempt.
 
-CRITICAL INSTRUCTION: If a student asks for the latest amendments or statutory updates for ${attemptStr}, DO NOT HALLUCINATE older legacy amendments from 2020, 2021, or 2022 and claim they belong to ${attemptStr}. If the provided ICAI Context below does NOT contain relevant recent amendments for ${attemptStr}, simply say: "I couldn't find the exact amendments for ${attemptStr} in the official ICAI Knowledge Base." Do not invent them!
+PERSONALITY & TONE:
+1. GenZ relatable, crisp, and smart. Like a senior who's cleared exams and is now your vibe check partner.
+2. STICK TO ENGLISH/HINGLISH flow. NO "NAMASTE" or traditional greetings. Start with "Yo", "Wassup", or "Hey there".
+3. NO CRINGE: Use Bollywood song hooks, jokes, or mnemonics ONLY when explaining text-heavy or boring concepts as "Memory Hacks". Do NOT use them for regular chatter.
+4. If a question is simple, be direct and fast. If it's a dry logic (Tax, Audit, Law), drop a memory hook (e.g., using a trend or a song) to make it stick.
 
-YOUR PERSONA & RESPONSE RULES:
-1. GenZ, relatable, approachable — crisp explanations like that smart senior who's already cracked the exam.
-2. No motivational fluff. Jump straight to the concept with bullet points, bold key terms, and tables for comparisons.
-3. For legal provisions, ALWAYS cite the Section / Rule / Notification number.
-4. If the user uploads an image (balance sheet, MCQ, journal entry), analyze it carefully and answer based on the visual.
-5. If an extracted PDF document is provided, base your calculation on that document's data.
-6. DO NOT mention that you are an AI or that you use a "RAG model" or "database". Present yourself purely as CA Bhaiya checking the ICAI materials.
+CRITICAL: If relevant data is missing for ${attemptStr}, admit it rather than hallucinating old 2020-2022 amendments.
 
-AMENDMENT PRECEDENCE RULE (CRITICAL):
-The ICAI context below may contain multiple entries covering the same legal provision at different exam attempt dates. Apply this rule:
-- The entry with the MOST RECENT attempt date is the currently applicable version.
-- If an older amendment is NOT contradicted by a newer one, it is STILL fully valid and applicable.
-- Only override an old amendment with a newer one when they explicitly conflict.
-- Always state the applicable attempt/version when citing an amendment.
+AMENDMENT RULES:
+- LATEST amendment in context wins.
+- Cite Section/Rule numbers ALWAYS.
 
-SELECTED ATTEMPT CONTEXT: ${attemptStr} | Level: ${levelStr}
+SELECTED ATTEMPT: ${attemptStr} | Level: ${levelStr}
 
-─── ICAI KNOWLEDGE BASE CONTEXT (sorted: newest amendment first) ───
+─── ICAI KNOWLEDGE BASE CONTEXT ───
 ${contextBlock}
 ──────────────────────────────────────────────────────────────────`;
 }
 
 // ─── Step 4a: Call Groq for text responses ────────────────────────────────────
-async function callGroq(systemPrompt, history, query, pdfContext, env) {
-  const apiKey = env.GROQ_API_KEY;
-  if (!apiKey) throw new Error('GROQ_API_KEY secret is not set.');
+async function callLLM(provider, systemPrompt, history, query, env) {
+  let url, key, model;
+  if (provider === 'groq') {
+    url = GROQ_URL; key = env.GROQ_API_KEY; model = GROQ_MODEL;
+  } else if (provider === 'openrouter') {
+    url = OPENROUTER_URL; key = env.OPENROUTER_API_KEY; model = OPENROUTER_MODEL;
+  } else {
+    throw new Error('Unknown provider');
+  }
 
   const messages = [{ role: 'system', content: systemPrompt }];
-
-  // Add conversation history (alternate user/assistant)
-  let lastRole = 'system';
-  for (const msg of history.slice(-MAX_HISTORY)) {
-    const role = msg.role === 'user' ? 'user' : 'assistant';
-    if (role === lastRole) continue;
-    messages.push({ role, content: msg.text || msg.content || '' });
-    lastRole = role;
+  for (const msg of history.slice(-6)) {
+    messages.push({ role: msg.role === 'user' ? 'user' : 'assistant', content: msg.text || msg.content || '' });
   }
+  messages.push({ role: 'user', content: query });
 
-  // Append current query (with optional PDF context)
-  const userContent = pdfContext
-    ? `[UPLOADED DOCUMENT]\n${pdfContext.substring(0, 8000)}\n\n[QUESTION]\n${query}`
-    : query;
-
-  if (lastRole !== 'user') {
-    messages.push({ role: 'user', content: userContent });
-  } else {
-    messages[messages.length - 1].content += '\n\n' + userContent;
-  }
-
-  const res = await fetch(GROQ_URL, {
+  const res = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: GROQ_MODEL,
-      messages,
-      temperature: 0.65,
-      max_tokens: 2048,
-    }),
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+    body: JSON.stringify({ model, messages, temperature: 0.65, max_tokens: 1500 }),
   });
 
-  if (!res.ok) {
-    const err = await res.text();
-    // Fallback to smaller model on rate limit
-    if (res.status === 429) return callGroqFallback(systemPrompt, history, query, pdfContext, env);
-    throw new Error(`Groq error ${res.status}: ${err}`);
-  }
-
+  if (!res.ok) return { error: res.status, detail: await res.text() };
   const data = await res.json();
-  return data.choices?.[0]?.message?.content || 'I could not generate a response. Please try again.';
-}
-
-async function callGroqFallback(systemPrompt, history, query, pdfContext, env) {
-  const apiKey = env.GROQ_API_KEY;
-  const messages = [
-    { role: 'system', content: systemPrompt },
-    { role: 'user', content: pdfContext ? `[DOC]\n${pdfContext.substring(0, 4000)}\n\n${query}` : query }
-  ];
-  const res = await fetch(GROQ_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-    body: JSON.stringify({ model: GROQ_FAST, messages, temperature: 0.65, max_tokens: 1500 }),
-  });
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content || 'Service is temporarily busy. Please try again in a moment.';
+  return { answer: data.choices?.[0]?.message?.content };
 }
 
 // ─── Step 4b: Call NVIDIA for vision (image) inputs ───────────────────────────
@@ -304,15 +261,14 @@ export default {
       // 2. Build system prompt
       const systemPrompt = buildSystemPrompt(contextChunks, level, attempt);
 
-      // 3. Generate answer
-      let answer;
-      if (image_url) {
-        // Vision model for images
-        answer = await callNvidiaVision(systemPrompt, q, image_url, env);
-      } else {
-        // Text-only via Groq
-        answer = await callGroq(systemPrompt, history, q, pdf_context, env);
+      // 3. Waterfall through providers
+      let finalResult = await callLLM('groq', systemPrompt, history, q, env);
+      
+      if (finalResult.error === 429 && env.OPENROUTER_API_KEY) {
+        finalResult = await callLLM('openrouter', systemPrompt, history, q, env);
       }
+
+      const answer = finalResult.answer || "Yo, current traffic is high! Study some AS-2 while I reset. Catch you in a bit? (API Limit)";
 
       return json({ answer, sources: contextChunks.slice(0, 3).map(c => ({
         subject: c.subject, type: c.type, attempt: c.latestAttempt
