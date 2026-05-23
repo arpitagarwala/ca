@@ -102,19 +102,62 @@
       width: 32px; height: 32px; border-radius: 10px; background: var(--card);
       border: 1px solid var(--border); flex-shrink: 0; overflow: hidden;
     }
+    /* Premium Bot Text & Markdown Styling */
     .bot-content {
       background: var(--card); border: 1px solid var(--border);
-      padding: 16px; border-radius: 4px 22px 22px 22px;
-      color: #e4e4e7; line-height: 1.6; font-size: 15px;
+      padding: 18px 22px; border-radius: 4px 22px 22px 22px;
+      color: #e4e4e7; line-height: 1.7; font-size: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
     }
-
-    /* Bot Text Styling */
-    .bot-content p { margin: 0 0 12px 0; }
+    
+    .bot-content p { margin: 0 0 14px 0; }
     .bot-content p:last-child { margin-bottom: 0; }
     .bot-content strong { color: #fff; font-weight: 700; }
-    .bot-content ul, .bot-content ol { padding-left: 20px; margin: 12px 0; }
-    .bot-content li { margin-bottom: 8px; }
-    .bot-content blockquote { border-left: 3px solid var(--accent); padding-left: 12px; color: var(--text-muted); margin: 12px 0; }
+    .bot-content h1, .bot-content h2, .bot-content h3 { color: #fff; margin: 24px 0 12px; font-weight: 700; line-height: 1.3; }
+    .bot-content h1 { font-size: 1.4em; }
+    .bot-content h2 { font-size: 1.2em; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .bot-content h3 { font-size: 1.1em; }
+    
+    /* Elegant Lists */
+    .bot-content ul, .bot-content ol { padding-left: 24px; margin: 14px 0; }
+    .bot-content li { margin-bottom: 8px; position: relative; }
+    .bot-content li::marker { color: var(--accent); }
+    
+    /* Beautiful Tables */
+    .bot-content table { 
+      width: 100%; border-collapse: separate; border-spacing: 0; 
+      margin: 20px 0; border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .bot-content th { 
+      background: rgba(255, 255, 255, 0.04); 
+      color: #fff; font-weight: 600; text-align: left; 
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+    }
+    .bot-content td { 
+      padding: 12px 16px; border-bottom: 1px solid var(--border); 
+      color: #d4d4d8;
+    }
+    .bot-content tr:last-child td { border-bottom: none; }
+    .bot-content tr:nth-child(even) td { background: rgba(255, 255, 255, 0.015); }
+    
+    /* Code & Blockquotes */
+    .bot-content code { 
+      background: rgba(99, 102, 241, 0.15); color: #a5b4fc; 
+      padding: 2px 6px; border-radius: 4px; font-family: ui-monospace, monospace; 
+      font-size: 0.9em;
+    }
+    .bot-content pre { 
+      background: #000; border: 1px solid var(--border); padding: 14px; 
+      border-radius: 8px; overflow-x: auto; margin: 16px 0;
+    }
+    .bot-content pre code { background: transparent; color: #e4e4e7; padding: 0; }
+    .bot-content blockquote { 
+      border-left: 3px solid var(--accent); padding-left: 16px; 
+      color: #a1a1aa; margin: 16px 0; font-style: italic; background: rgba(255,255,255,0.02); padding-top: 8px; padding-bottom: 8px; border-radius: 0 8px 8px 0;
+    }
 
     /* Input Styling */
     .input-wrapper {
