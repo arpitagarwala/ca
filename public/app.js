@@ -1,5 +1,9 @@
 import {renderMarkdown} from './markdown.js';
 const $=s=>document.querySelector(s);
+const developmentNotice=$('#developmentNotice');
+$('#showDevelopmentNotice').addEventListener('click',()=>developmentNotice.showModal());
+// Show on every page load, before curriculum or AI services finish loading.
+developmentNotice.showModal();
 const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function messageHTML(m){if(m.role==='assistant'&&/but the given (?:opening )?value|we will follow the numbers|implying.{0,100}(?:we will|we'll|follow|use the)/is.test(m.content))return escapeHTML('This earlier answer contained inconsistent numerical data and has been withheld. Please ask again with a complete problem.');return renderMarkdown(m.content)}
 let state;try{state=JSON.parse(localStorage.getItem('ca-bhaiya-v4'))}catch{}
@@ -88,4 +92,3 @@ try{
  try{status=await(await fetch(api('/api/status'))).json()}catch{}
 }catch(e){$('#chatError').textContent=e.message}
 setBusy(!catalog);
-
