@@ -10,8 +10,17 @@ sources = [
  ('Nov 2026', 'https://boslive.icai.org/assets/BOS_Study_Material_applicable_for_Final_Course_November_2026_Examination.pdf')
 ]
 verified = []
+snapshots = json.loads((ROOT / 'knowledge' / 'applicability-evidence.json').read_text(encoding='utf-8-sig')) if (ROOT / 'knowledge' / 'applicability-evidence.json').exists() else []
+m.setdefault('warnings', [])
 for attempt, url in sources:
-    r = requests.get(url, timeout=45)
+    r = requests.get(url, timeout=45, headers={'User-Agent': 'CA-Bhaiya-Source-Checker/5.0 (+https://ca.arpitagarwala.com)'})
+    if r.status_code in (403, 429, 500, 502, 503, 504):
+        prior = next((s for s in snapshots if s['url'] == url and s['attempt'] == attempt and s.get('verifiedFacts', {}).get('ibsDigests') == ['July 2024', 'July 2025 Volume II']), None)
+        if not prior: r.raise_for_status()
+        verified.append({**prior, 'recheck': 'blocked; retained exact-attempt verified facts'})
+        m['warnings'].append({'url': url, 'attempt': attempt, 'status': r.status_code, 'retainedVerificationDate': prior['verifiedAt'], 'message': 'Historical applicability notice could not be re-fetched; exact previously verified mappings retained. No new applicability inferred.'})
+        print('Retained verified fixed-attempt notice: ' + attempt + ' (HTTP ' + str(r.status_code) + ')', flush=True)
+        continue
     r.raise_for_status()
     pdf = pymupdf.open(stream=r.content, filetype='pdf')
     text = ' '.join(' '.join(p.get_text() for p in pdf).split())

@@ -25,6 +25,7 @@ async function api(body){
  }
 }
 const signature=d=>createHash('sha256').update(d.sha256+'|'+JSON.stringify(JSON.parse(d.metadata).applicability)+'|'+d.title+'|'+d.type).digest('hex');
+if(process.argv.includes('--probe')){const snapshot=await api({operation:'snapshot'});console.log('Verified GitHub cloud identity; corpus access confirmed for '+snapshot.records.length+' records.');process.exit(0)}
 const db=new DatabaseSync('knowledge/cache/corpus.sqlite',{readOnly:true});
 const documents=db.prepare('SELECT * FROM documents WHERE active=1 ORDER BY level,subject_id,id').all();
 const snapshot=await api({operation:'snapshot'}),remote=new Map(snapshot.records.map(d=>[d.id,d]));
@@ -39,6 +40,6 @@ for(const doc of changed){
  if(uploaded%10===0)console.log(JSON.stringify({uploaded,total:changed.length}));
 }
 const catalog=JSON.parse(await readFile('public/catalog.json','utf8')),report=JSON.parse(await readFile('knowledge/build-report.json','utf8'));
-const result=await api({operation:'finish',catalog,errors:report.errors,pending:report.pending});
+const result=await api({operation:'finish',catalog,errors:report.errors,pending:report.pending,warnings:report.warnings||[]});
 await writeFile('knowledge/cloud-sync-status.json',JSON.stringify({checkedAt:new Date().toISOString(),complete:result.complete,records:documents.length,changed:changed.length,uploaded,failures:report.errors.length,runUrl:result.updater.runUrl},null,2)+'\n');
 console.log(JSON.stringify(result));db.close();

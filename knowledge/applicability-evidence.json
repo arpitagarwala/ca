@@ -1,0 +1,30 @@
+[
+  {
+    "attempt": "May 2026",
+    "url": "https://boslive.icai.org/assets/BOS_Study_Material_applicable_for_May_2026_Examination.pdf",
+    "sha256": "05429b010207aab0d18c939d4a8ca44661bd382ef391a1e5166c72fa983e336c",
+    "verifiedAt": "2026-10-31T15:55:42.023468+00:00",
+    "verifiedFacts": {
+      "ibsDigests": [
+        "July 2024",
+        "July 2025 Volume II"
+      ],
+      "spomSetA": "September 2025",
+      "spomSetB": "October 2023"
+    }
+  },
+  {
+    "attempt": "Nov 2026",
+    "url": "https://boslive.icai.org/assets/BOS_Study_Material_applicable_for_Final_Course_November_2026_Examination.pdf",
+    "sha256": "a64cdd1b70dde46a8075547fc7e1b9e45e56c7e1c0bcb2ecde9351ae7ee7ba47",
+    "verifiedAt": "2026-10-31T15:55:42.797578+00:00",
+    "verifiedFacts": {
+      "ibsDigests": [
+        "July 2024",
+        "July 2025 Volume II"
+      ],
+      "spomSetA": "September 2025",
+      "spomSetB": "October 2023"
+    }
+  }
+]

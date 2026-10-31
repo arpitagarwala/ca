@@ -35,6 +35,8 @@ The cloud runner refreshes official ICAI pages, verifies applicability, parses/r
 
 A small verified-check status file is committed after each successful run for audit and repository activity; raw textbook content stays out of the public repository. The live /api/status response records the cloud run URL and check time. The course directory is published into D1, so changing amendments does not require a new frontend deployment or a Cloudflare deployment credential.
 
+Some historical BoS notice URLs return HTTP 403 to cloud runners. For those exact 2026 attempts only, the updater retains the previously verified facts in knowledge/applicability-evidence.json, preserves the original verification date, and reports a recheck warning. A missing, contradictory or newly unverified notice is not silently accepted. Current curriculum pages, textbooks and amendment documents are still checked normally.
+
 The previous Windows task is disabled after the first successful cloud run. Manual npm run sync remains available as an operator fallback, but is not the scheduled updater.
 
 ## Development and maintenance

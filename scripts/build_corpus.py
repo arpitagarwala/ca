@@ -70,7 +70,7 @@ def download(doc):
             time.sleep(1 + trial * 2)
 
 documents = manifest['documents']
-result = {'checkedAt': manifest['checkedAt'], 'documents': [], 'errors': [], 'pending': manifest.get('pending', [])}
+result = {'checkedAt': manifest['checkedAt'], 'documents': [], 'errors': [], 'pending': manifest.get('pending', []), 'warnings': manifest.get('warnings', [])}
 # Download each URL only once. Different applicability mappings may share the same PDF.
 groups = {}
 for doc in documents:

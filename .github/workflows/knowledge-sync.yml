@@ -28,6 +28,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: pip install -r scripts/requirements-corpus.txt
       - run: npm run check
+      - name: Verify cloud publishing identity
+        run: node scripts/cloud-publish.mjs --probe
       - run: node scripts/discover.mjs
       - run: node scripts/verify-sources.mjs
       - run: python scripts/verify_supplements.py
