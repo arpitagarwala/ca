@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
 import {handleCloudSync} from '../lib/cloud-sync.js';
+import {NOTICE_URLS} from '../lib/notice-fetch.js';
 const identityVerifier=async()=>({run_id:'test-run',run_attempt:'1'});
 function database(){
  const native=new DatabaseSync(':memory:');native.exec(readFileSync(new URL('../knowledge/schema.sql',import.meta.url),'utf8'));
@@ -23,12 +24,15 @@ test('changed sources remain withheld until every expected document is staged an
  const catalog={levels:Object.fromEntries(['foundation','intermediate','final'].map(l=>[l,{subjects:[{id:l+'-1'}]}]))};
  assert.equal((await handleCloudSync(request({operation:'finish',catalog}),env,options)).status,409);
  const document=JSON.parse(native.prepare('SELECT metadata FROM documents WHERE id=?').get(ids[0]).metadata);
+ document.applicabilitySources=[{url:NOTICE_URLS[0],recheck:'blocked'}];
  const chunks=[{page:1,page_end:1,text:'An official passage with sufficient source text for an actual staging transaction test.'}];
  assert.equal((await handleCloudSync(request({operation:'put',document,chunks}),env,options)).status,200);
  assert.equal(native.prepare('SELECT active FROM documents WHERE id=?').get(ids[0]).active,0);
- assert.equal((await handleCloudSync(request({operation:'finish',catalog}),env,options)).status,200);
+ const noticeVerifications=NOTICE_URLS.map(url=>({url,sha256:'b'.repeat(64),verifiedAt:new Date().toISOString(),transport:'cloudflare-relay'}));
+ assert.equal((await handleCloudSync(request({operation:'finish',catalog,noticeVerifications}),env,options)).status,200);
  assert.equal(native.prepare('SELECT active FROM documents WHERE id=?').get(ids[0]).active,1);
  const status=JSON.parse(native.prepare("SELECT value FROM sync_state WHERE key='status'").get().value);assert.equal(status.updater.provider,'github-actions');assert.equal(status.documents.length,500);
+ assert.deepEqual(JSON.parse(native.prepare('SELECT metadata FROM documents WHERE id=?').get(ids[0]).metadata).applicabilitySources,noticeVerifications);
 });
 test('a valid workload cannot stage an unofficial source',async()=>{
  const{native,db,ids}=database(),env={CORPUS:db},options={identityVerifier};await handleCloudSync(request({operation:'begin',ids,changed:[ids[0]]}),env,options);
