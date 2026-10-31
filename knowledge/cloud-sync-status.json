@@ -1,9 +1,43 @@
 {
-  "checkedAt": "2026-10-31T16:10:23.969Z",
+  "checkedAt": "2026-10-31T16:27:29.674Z",
   "complete": true,
   "records": 1167,
-  "changed": 89,
-  "uploaded": 89,
+  "changed": 0,
+  "uploaded": 0,
   "failures": 0,
-  "runUrl": "https://github.com/arpitagarwala/ca/actions/runs/41217426374"
+  "noticeVerifications": [
+    {
+      "attempt": "May 2026",
+      "url": "https://boslive.icai.org/assets/BOS_Study_Material_applicable_for_May_2026_Examination.pdf",
+      "sha256": "05429b010207aab0d18c939d4a8ca44661bd382ef391a1e5166c72fa983e336c",
+      "verifiedAt": "2026-10-31T16:16:30.026567+00:00",
+      "transport": "cloudflare-relay",
+      "verifiedFacts": {
+        "ibsDigests": [
+          "July 2024",
+          "July 2025 Volume II"
+        ],
+        "spomSetA": "September 2025",
+        "spomSetB": "October 2023",
+        "afm": "November 2024 (Reprint August 2025 and onwards)"
+      }
+    },
+    {
+      "attempt": "Nov 2026",
+      "url": "https://boslive.icai.org/assets/BOS_Study_Material_applicable_for_Final_Course_November_2026_Examination.pdf",
+      "sha256": "a64cdd1b70dde46a8075547fc7e1b9e45e56c7e1c0bcb2ecde9351ae7ee7ba47",
+      "verifiedAt": "2026-10-31T16:16:32.780676+00:00",
+      "transport": "cloudflare-relay",
+      "verifiedFacts": {
+        "ibsDigests": [
+          "July 2024",
+          "July 2025 Volume II"
+        ],
+        "spomSetA": "September 2025",
+        "spomSetB": "October 2023",
+        "afm": "November 2024 (Reprint August 2025 and onwards)"
+      }
+    }
+  ],
+  "runUrl": "https://github.com/arpitagarwala/ca/actions/runs/41218809167"
 }
