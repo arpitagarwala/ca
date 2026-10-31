@@ -37,7 +37,7 @@ A small verified-check status file is committed after each successful run for au
 
 Some historical BoS notice URLs return HTTP 403 to cloud runners. For those exact 2026 attempts only, the updater retains the previously verified facts in knowledge/applicability-evidence.json, preserves the original verification date, and reports a recheck warning. A missing, contradictory or newly unverified notice is not silently accepted. Current curriculum pages, textbooks and amendment documents are still checked normally.
 
-The previous Windows task is disabled after the first successful cloud run. Manual npm run sync remains available as an operator fallback, but is not the scheduled updater.
+The first complete cloud run succeeded on 31 October 2026: https://github.com/arpitagarwala/ca/actions/runs/41217426374. It published all 1,167 records with zero corpus errors and recorded two historical-notice recheck warnings. The previous Windows task is now disabled. Manual npm run sync remains available as an operator fallback, but is not the scheduled updater.
 
 ## Development and maintenance
 
