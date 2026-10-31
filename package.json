@@ -1,15 +1,21 @@
 {
-  "name": "ca-chatbot-worker",
-  "version": "2.0.0",
+  "name": "ca-bhaiya",
+  "version": "5.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
+    "dev": "wrangler dev --local --port 8787",
     "deploy": "wrangler deploy",
-    "setup-index": "npx wrangler vectorize create ca-knowledge-vectors --dimensions=384 --metric=cosine",
-    "update": "node scrape-amendments.js",
-    "dev": "wrangler dev"
+    "check": "node --check worker.js && node --check public/app.js && node --check scripts/sync.mjs && node --test",
+    "discover": "node scripts/discover.mjs",
+    "sync": "node scripts/refresh.mjs",
+    "sync:remote": "node scripts/upload-corpus.mjs --bulk",
+    "verify:sources": "node scripts/verify-sources.mjs",
+    "test:live": "node scripts/live-eval.mjs",
+    "prepare:pages": "node scripts/prepare-pages.mjs"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0"
+    "wrangler": "^4.156.0"
   },
   "dependencies": {
     "cheerio": "^1.0.0",

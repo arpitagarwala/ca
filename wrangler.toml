@@ -1,21 +1,24 @@
 name = "ca-chatbot"
 main = "worker.js"
-compatibility_date = "2025-01-01"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
 
-# Workers AI — free embedding model (384 dims)
-[ai]
-binding = "AI"
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
 
-# Vectorize — semantic vector store
-[[vectorize]]
-binding = "VECTORIZE"
-index_name = "ca-knowledge-vectors"
+# No Workers AI binding: free-only deployment cannot incur AI inference charges.
 
-# Legacy KV kept for rollback safety (can be removed after vectorize is confirmed working)
-[[kv_namespaces]]
-binding = "CA_KNOWLEDGE"
-id = "eff3c01506c04572b76e311330700aad"
-preview_id = "c5a42887f2074da38ca87a0814498ca4"
+[[d1_databases]]
+binding = "CORPUS"
+database_name = "ca-bhaiya-corpus"
+database_id = "79a2cca9-859f-45a8-ac54-77fb7eaa76a0"
 
 [vars]
-ALLOWED_ORIGIN = "*"
+ALLOWED_ORIGIN = "https://ca.arpitagarwala.online,https://ca.arpitagarwala.com,https://ca-bhaiya.vercel.app"
+FREE_ONLY = "true"
+CF_NEURON_BUDGET = "8000"
+CF_AI_ENABLED = "false"
+CF_FREE_PLAN_CONFIRMED = "false"
+

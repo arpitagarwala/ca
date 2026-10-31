@@ -3,3 +3,12 @@ node_modules/
 scrape-state.json
 vectors.ndjson
 data/
+.local-backups/
+venv/
+.wrangler/
+.dev.vars
+knowledge/cache/
+knowledge/*.ndjson
+knowledge/sync-report.json
+knowledge/build-report.json
+knowledge/eval-report.json

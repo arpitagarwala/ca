@@ -1,0 +1,48 @@
+name: ICAI cloud amendment refresh
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 0 * * *'
+  push:
+    branches: [main]
+    paths: ['.github/workflows/knowledge-sync.yml']
+permissions:
+  contents: write
+  id-token: write
+concurrency:
+  group: icai-cloud-sync
+  cancel-in-progress: false
+jobs:
+  refresh:
+    if: github.event.repository.private == false && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: pip install -r scripts/requirements-corpus.txt
+      - run: npm run check
+      - run: node scripts/discover.mjs
+      - run: node scripts/verify-sources.mjs
+      - run: python scripts/verify_supplements.py
+      - run: python -u scripts/build_corpus.py
+      - name: Publish through short-lived GitHub identity
+        run: node scripts/cloud-publish.mjs
+      - name: Record the verified cloud check
+        if: success()
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('node:fs');
+            const path = 'knowledge/cloud-sync-status.json';
+            const content = fs.readFileSync(path, 'utf8');
+            let sha;
+            try { sha = (await github.rest.repos.getContent({ ...context.repo, path, ref: 'main' })).data.sha; }
+            catch (error) { if (error.status !== 404) throw error; }
+            await github.rest.repos.createOrUpdateFileContents({ ...context.repo, path, branch: 'main', message: 'chore: record verified ICAI cloud source check', content: Buffer.from(content).toString('base64'), ...(sha ? { sha } : {}) });

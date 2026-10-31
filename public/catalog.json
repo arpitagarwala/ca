@@ -1,0 +1,147 @@
+{
+  "checkedAt": "2026-10-31T14:54:42.045Z",
+  "scheme": "New Scheme of Education and Training",
+  "levels": {
+    "foundation": {
+      "url": "https://www.icai.org/post/foundation-nset",
+      "subjects": [
+        {
+          "id": "foundation-1",
+          "title": "Paper-1: Accounting",
+          "url": "https://www.icai.org/post/sm-foundation-paper1",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "foundation-2",
+          "title": "Paper-2: Business Laws",
+          "url": "https://www.icai.org/post/sm-foundation-paper2",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "foundation-3",
+          "title": "Paper-3: Quantitative Aptitude",
+          "url": "https://www.icai.org/post/sm-foundation-paper3",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "foundation-4",
+          "title": "Paper-4: Business Economics",
+          "url": "https://www.icai.org/post/sm-foundation-paper4",
+          "topics": [],
+          "resources": []
+        }
+      ]
+    },
+    "intermediate": {
+      "url": "https://www.icai.org/post/intermediate-nset",
+      "subjects": [
+        {
+          "id": "intermediate-1",
+          "title": "Paper-1: Advanced Accounting",
+          "url": "https://www.icai.org/post/sm-intermediate-paper1",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "intermediate-2",
+          "title": "Paper-2: Corporate and Other Laws",
+          "url": "https://www.icai.org/post/sm-intermediate-paper2",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "intermediate-3",
+          "title": "Section A: Income-tax Law",
+          "url": "https://www.icai.org/post/sm-intermediate-paper3-seca",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "intermediate-4",
+          "title": "Section B: Goods and Services Tax",
+          "url": "https://www.icai.org/post/sm-intermediate-paper3-secb",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "intermediate-5",
+          "title": "Paper-4: Cost and Management Accounting",
+          "url": "https://www.icai.org/post/sm-intermediate-paper4",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "intermediate-6",
+          "title": "Paper-5: Auditing and Ethics",
+          "url": "https://www.icai.org/post/sm-intermediate-paper5",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "intermediate-7",
+          "title": "Section A: Financial Management",
+          "url": "https://www.icai.org/post/sm-intermediate-paper6a",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "intermediate-8",
+          "title": "Section B: Strategic Management",
+          "url": "https://www.icai.org/post/sm-intermediate-paper6b",
+          "topics": [],
+          "resources": []
+        }
+      ]
+    },
+    "final": {
+      "url": "https://www.icai.org/post/final-nset",
+      "subjects": [
+        {
+          "id": "final-1",
+          "title": "Paper-1: Financial Reporting",
+          "url": "https://www.icai.org/post/sm-final-paper1",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "final-2",
+          "title": "Paper-2: Advanced Financial Management",
+          "url": "https://www.icai.org/post/sm-final-paper2",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "final-3",
+          "title": "Paper-3: Advanced Auditing, Assurance and Professional Ethics",
+          "url": "https://www.icai.org/post/sm-final-paper3",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "final-4",
+          "title": "Paper-4: Direct Tax Laws & International Taxation",
+          "url": "https://www.icai.org/post/sm-final-paper4",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "final-5",
+          "title": "Paper-5: Indirect Tax Laws",
+          "url": "https://www.icai.org/post/sm-final-paper5",
+          "topics": [],
+          "resources": []
+        },
+        {
+          "id": "final-6",
+          "title": "Paper-6: Integrated Business Solutions (Multidisciplinary Case Study with Strategic Management)",
+          "url": "https://www.icai.org/post.html?post_id=19442",
+          "topics": [],
+          "resources": []
+        }
+      ]
+    }
+  }
+}

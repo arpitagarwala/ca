@@ -1,0 +1,11 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {verifyGitHubIdentity,SYNC_AUDIENCE} from '../lib/github-identity.js';
+const pair=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['sign','verify']);
+const jwk={...await crypto.subtle.exportKey('jwk',pair.publicKey),kid:'test-key'};
+const fetcher=async()=>Response.json({keys:[jwk]});
+const now=Math.floor(Date.now()/1000),claims={iss:'https://token.actions.githubusercontent.com',aud:SYNC_AUDIENCE,exp:now+300,iat:now,nbf:now-5,repository:'arpitagarwala/ca',repository_id:'1191403719',repository_owner_id:'210027759',ref:'refs/heads/main',workflow_ref:'arpitagarwala/ca/.github/workflows/knowledge-sync.yml@refs/heads/main',repository_visibility:'public',runner_environment:'github-hosted',event_name:'schedule',run_id:'123',run_attempt:'1'};
+async function token(changes={}){const encoded=[{alg:'RS256',kid:'test-key'},{...claims,...changes}].map(v=>Buffer.from(JSON.stringify(v)).toString('base64url')).join('.');return 'Bearer '+encoded+'.'+Buffer.from(await crypto.subtle.sign('RSASSA-PKCS1-v1_5',pair.privateKey,new TextEncoder().encode(encoded))).toString('base64url')}
+test('only the signed public-repository main-branch cloud workflow is accepted',async()=>{assert.equal((await verifyGitHubIdentity(await token(),{fetcher})).run_id,'123')});
+test('forks, wrong workflow/ref/audience, expired identities and self-hosted runners are rejected',async()=>{for(const changes of [{repository:'attacker/ca'},{repository_id:'0'},{repository_owner_id:'0'},{ref:'refs/pull/1/merge'},{workflow_ref:'arpitagarwala/ca/.github/workflows/other.yml@refs/heads/main'},{aud:'wrong'},{iss:'https://attacker.example'},{repository_visibility:'private'},{runner_environment:'self-hosted'},{event_name:'pull_request'},{exp:now-1}])await assert.rejects(verifyGitHubIdentity(await token(changes),{fetcher}))});
+test('unsigned and altered identities are rejected',async()=>{await assert.rejects(verifyGitHubIdentity(null,{fetcher}));const original=await token();const parts=original.split('.');parts[1]=Buffer.from(JSON.stringify({...claims,repository:'attacker/ca'})).toString('base64url');await assert.rejects(verifyGitHubIdentity(parts.join('.'),{fetcher}))});

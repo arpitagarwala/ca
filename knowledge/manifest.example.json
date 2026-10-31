@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "documents": [
+    {
+      "title": "Official document title",
+      "url": "https://resource.cdn.icai.org/REPLACE-WITH-OFFICIAL-DOCUMENT.pdf",
+      "level": "intermediate",
+      "subjectId": "intermediate-3",
+      "type": "statutory_update",
+      "attempts": ["May 2026"],
+      "applicabilitySource": "https://www.icai.org/post/study-material-nset",
+      "applicabilityNote": "Replace with the exact official applicability evidence for this document and attempt.",
+      "sha256": "REPLACE-WITH-REVIEWED-DOCUMENT-SHA256",
+      "approved": false
+    }
+  ]
+}
