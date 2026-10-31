@@ -28,11 +28,13 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: pip install -r scripts/requirements-corpus.txt
       - run: npm run check
+      - run: python -m unittest discover -s tests -p 'test_notices.py'
       - name: Verify cloud publishing identity
         run: node scripts/cloud-publish.mjs --probe
       - run: node scripts/discover.mjs
       - run: node scripts/verify-sources.mjs
-      - run: python scripts/verify_supplements.py
+      - name: Verify live applicability notices and supplements
+        run: python scripts/verify_supplements.py
       - run: python -u scripts/build_corpus.py
       - name: Publish through short-lived GitHub identity
         run: node scripts/cloud-publish.mjs

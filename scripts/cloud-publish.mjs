@@ -40,6 +40,6 @@ for(const doc of changed){
  if(uploaded%10===0)console.log(JSON.stringify({uploaded,total:changed.length}));
 }
 const catalog=JSON.parse(await readFile('public/catalog.json','utf8')),report=JSON.parse(await readFile('knowledge/build-report.json','utf8'));
-const result=await api({operation:'finish',catalog,errors:report.errors,pending:report.pending,warnings:report.warnings||[]});
-await writeFile('knowledge/cloud-sync-status.json',JSON.stringify({checkedAt:new Date().toISOString(),complete:result.complete,records:documents.length,changed:changed.length,uploaded,failures:report.errors.length,runUrl:result.updater.runUrl},null,2)+'\n');
+const result=await api({operation:'finish',catalog,errors:report.errors,pending:report.pending,warnings:report.warnings||[],noticeVerifications:report.noticeVerifications||[]});
+await writeFile('knowledge/cloud-sync-status.json',JSON.stringify({checkedAt:new Date().toISOString(),complete:result.complete,records:documents.length,changed:changed.length,uploaded,failures:report.errors.length,noticeVerifications:report.noticeVerifications||[],runUrl:result.updater.runUrl},null,2)+'\n');
 console.log(JSON.stringify(result));db.close();
