@@ -39,6 +39,8 @@ The May and November 2026 BoS notices are fetched and verified live on every clo
 
 The first complete cloud run succeeded on 31 October 2026: https://github.com/arpitagarwala/ca/actions/runs/41217426374. It published all 1,167 records with zero corpus errors and recorded two historical-notice recheck warnings. The previous Windows task is now disabled. Manual npm run sync remains available as an operator fallback, but is not the scheduled updater.
 
+The subsequent run https://github.com/arpitagarwala/ca/actions/runs/41218809167 freshly verified both notices through the Cloudflare relay, refreshed their source provenance, and published all 1,167 records with zero errors and zero warnings. It confirms that these notice checks also work entirely in the cloud.
+
 ## Development and maintenance
 
 Node 24+ and Python 3.12+ are used by the ingestion/evaluation tools.
