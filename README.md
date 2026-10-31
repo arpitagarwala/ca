@@ -65,7 +65,7 @@ Useful commands:
 - `npm run prepare:pages`: prepare the root GitHub Pages entry point to use the deployed Worker API.
 - `npm run deploy`: deploy the Worker and public assets.
 
-The live version is the Worker URL above. The frontend is deployed to the existing ca-bhaiya Vercel project at ca.arpitagarwala.com; ca.arpitagarwala.online preserves its redirect there. Vercel deployment dpl_G3PZunaGASuxZt4rZ9Vhr9ZLMUZy is READY. Backend and database remain on Cloudflare. Source changes in this checkout are not a Git push.
+The live version is the Worker URL above. The frontend is deployed to the existing ca-bhaiya Vercel project at ca.arpitagarwala.com; ca.arpitagarwala.online preserves its redirect there. Vercel deployment dpl_D8rtBV8wGTTMx15kNe8NqeHi4JAn is READY. Backend and database remain on Cloudflare.
 
 ## Validation and practical limits
 
@@ -74,3 +74,11 @@ Unit tests cover attempt boundaries, unofficial/legacy source rejection, provide
 Citation-number checks establish that cited sources exist; they do not prove every generated statement follows from those passages. Numerical examples, exceptions, source extraction and amendment conflicts still need ongoing academic evaluation. The service must not promise perfect answers, predicted exam marks or exhaustive latest-law coverage. Image-only PDFs are reported as needing OCR rather than filled with guessed text. Student analytics measure actual browser activity and self-assessed completion, not mastery. Chats and saved answers are stored on the user's device, without account synchronization.
 
 Reference sources: ICAI study material hub https://www.icai.org/post/study-material-nset; Groq limits https://console.groq.com/docs/rate-limits; OpenRouter limits https://openrouter.ai/docs/api/reference/limits; Cloudflare AI pricing https://developers.cloudflare.com/workers-ai/platform/pricing/; D1 pricing https://developers.cloudflare.com/d1/platform/pricing/.
+
+## Readability and free tutor reliability update
+
+The live UI uses 17–18 px body/answer text, 16 px controls, larger supporting text, stronger contrast, responsive layouts and readable preformatted journal entries. Phone controls no longer shrink to 9–10 px.
+
+Before generation, the tutor fits the source excerpts and conversation into a conservative 4,900 estimated input-token budget, keeping the student's question intact and preserving citation numbering. Older conversation and lower-ranked excerpts are reduced first; problems that still cannot fit receive an explicit size error. Requests reserve all applicable budgets atomically, so a rejected request does not consume the daily allowance. Successful Groq calls settle daily and minute reservations to actual reported token usage. OpenRouter keeps zero-price routing with low reasoning effort so the visible answer retains output space. Genuine capacity limits include retry timing; provider failures are distinguished from quota exhaustion. Cloudflare AI remains disabled.
+
+Validation: 41 unit tests pass. Live sourced responses succeeded for Foundation, Intermediate and Final, including a Final question with long conversation history. The custom-domain browser flow returned the inventory valuation answer with official citations. Readability was inspected at desktop and 390 px phone widths.

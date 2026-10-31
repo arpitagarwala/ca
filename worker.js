@@ -1,7 +1,8 @@
 import {LEVELS,validAttempt,retrieve,systemPrompt,ANSWER_POLICY_VERSION} from './lib/knowledge.js';
 import catalog from './public/catalog.json' with { type: 'json' };
-import {generateAnswer,CapacityError,SourceAnswerError,reserve} from './lib/providers.js';
+import {generateAnswer,CapacityError,SourceAnswerError,ProviderUnavailableError,reserve} from './lib/providers.js';
 import {handleCloudSync} from './lib/cloud-sync.js';
+import {prepareChatContext,QuestionSizeError} from './lib/chat-context.js';
 async function hash(text){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(b=>b.toString(16).padStart(2,'0')).join('')}
 async function corpusStatus(env){if(env.CORPUS){const row=await env.CORPUS.prepare("SELECT value FROM sync_state WHERE key='status'").first();return row?.value?JSON.parse(row.value):null}return env.CA_KNOWLEDGE?env.CA_KNOWLEDGE.get('ca-v4:status','json'):null}
 function json(data,status=200){return Response.json(data,{status,headers:{'Cache-Control':'no-store'}})}
@@ -34,13 +35,14 @@ async function handle(request,env){
  if(!sources.length)return json({answer:'I don’t have verified source excerpts for this question for '+b.level+', '+b.attempt+' yet. I cannot confirm the applicable provisions or provide a sourced solution. Open the official ICAI material below, or try another indexed subject.',status:'insufficient_sources',sources:[],selection});
  const history=Array.isArray(b.history)?b.history.slice(-4).filter(m=>m&&['user','assistant'].includes(m.role)&&typeof m.content==='string').map(m=>({role:m.role,content:m.content.slice(0,1000)})):[];
  const mode=['explain','revise','practice','compare'].includes(b.mode)?b.mode:'explain';
- const messages=[{role:'system',content:systemPrompt(selection,sources,mode,b.language)},...history,{role:'user',content:b.query}];
+ let messages;
+ try{({messages,sources}=prepareChatContext(selection,sources,mode,b.language,history,b.query))}catch(error){if(error instanceof QuestionSizeError)return json({error:error.message},400);throw error}
  let answer,provider;
  try{
   if(env.CORPUS){({answer,provider}=await generateAnswer(messages,env,{sourceCount:sources.length}))}
   else if(env.FREE_ONLY!=='true'&&env.AI){answer=(await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast',{messages,temperature:0.15,max_tokens:2300})).response}
   if(typeof answer!=='string'||!answer.trim())throw Error('Empty response');
- }catch(error){return json({error:error instanceof CapacityError||error instanceof SourceAnswerError?error.message:'The tutor is temporarily unavailable. Your question is saved; please retry.'},error instanceof CapacityError?429:error instanceof SourceAnswerError?502:503)}
+ }catch(error){const response=json({error:error instanceof CapacityError||error instanceof SourceAnswerError||error instanceof ProviderUnavailableError?error.message:'The tutor is temporarily unavailable. Your question is saved; please retry.',...(error instanceof CapacityError?{retryAfter:error.retryAfter}:{})},error instanceof CapacityError?429:error instanceof SourceAnswerError?502:503);if(error instanceof CapacityError)response.headers.set('Retry-After',String(error.retryAfter));return response}
  const citations=[...answer.matchAll(/\[(\d+)\]/g)].map(m=>Number(m[1]));
  if(!citations.length||citations.some(n=>n<1||n>sources.length))return json({error:'The answer could not be validated against its sources. Please rephrase or retry.'},502);
  const result={answer,status:'sourced',policyVersion:ANSWER_POLICY_VERSION,selection,provider,sources:sources.map((s,i)=>({number:i+1,title:s.title,url:s.url,type:s.type,page:s.page,pageEnd:s.pageEnd,subject:s.subject,attempt:selection.attempt,sha256:s.sha256}))};

@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
-import {generateAnswer,reserve,CapacityError,SourceAnswerError} from '../lib/providers.js';
+import {generateAnswer,reserve,reserveAll,CapacityError,SourceAnswerError,ProviderUnavailableError} from '../lib/providers.js';
 function database(){const db=new DatabaseSync(':memory:');db.exec('CREATE TABLE budgets(key TEXT PRIMARY KEY,used INTEGER NOT NULL);CREATE TABLE provider_health(provider TEXT PRIMARY KEY,retry_at INTEGER NOT NULL);');return{prepare(sql){return{bind(...params){return{async first(){return db.prepare(sql).get(...params)||null},async run(){db.prepare(sql).run(...params);return{success:true}}}}}}}}
 const messages=[{role:'user',content:'Explain the concept using source [1].'}];
 test('atomic budget reservation never exceeds the allowance',async()=>{const db=database();const r=await Promise.all(Array.from({length:20},()=>reserve(db,'day',2,10)));assert.equal(r.filter(Boolean).length,5)});
@@ -14,18 +14,33 @@ test('429 fails over to an independent provider and respects Retry-After',async(
 });
 test('free-only mode never calls a configured paid custom endpoint',async()=>{
  const env={CORPUS:database(),FREE_ONLY:'true',CHAT_API_KEY:'test-only',CHAT_MODEL:'paid',CHAT_API_URL:'https://paid.example'};
- await assert.rejects(generateAnswer(messages,env,{fetcher:async()=>{throw Error('Must not be called')}}),CapacityError);
+ await assert.rejects(generateAnswer(messages,env,{fetcher:async()=>{throw Error('Must not be called')}}),ProviderUnavailableError);
 });
 test('OpenRouter requests use its verified free router and zero-price constraint',async()=>{
  let payload;
  const env={CORPUS:database(),OPENROUTER_API_KEY:'test-only',FREE_ONLY:'true'};
  await generateAnswer(messages,env,{sourceCount:1,fetcher:async(u,o)=>{payload=JSON.parse(o.body);return Response.json({choices:[{message:{content:'Answer [1]'}}]})}});
  assert.equal(payload.model,'openrouter/free');assert.deepEqual(payload.provider.max_price,{prompt:0,completion:0});
+ assert.deepEqual(payload.reasoning,{effort:'low',exclude:true});
 });
 test('unsupported citation numbers cause validation failure',async()=>{
  await assert.rejects(generateAnswer(messages,{CORPUS:database(),AI:{run:async()=>({response:'Unsupported [99]'})},CF_AI_ENABLED:'true',CF_FREE_PLAN_CONFIRMED:'true'},{sourceCount:1}),SourceAnswerError);
 });
-test('Cloudflare inference is disabled on unconfirmed/paid plans in free-only mode',async()=>{let called=false;await assert.rejects(generateAnswer(messages,{CORPUS:database(),FREE_ONLY:'true',CF_AI_ENABLED:'true',CF_FREE_PLAN_CONFIRMED:'false',AI:{run:async()=>{called=true}}}),CapacityError);assert.equal(called,false)});
+test('Cloudflare inference is disabled on unconfirmed/paid plans in free-only mode',async()=>{let called=false;await assert.rejects(generateAnswer(messages,{CORPUS:database(),FREE_ONLY:'true',CF_AI_ENABLED:'true',CF_FREE_PLAN_CONFIRMED:'false',AI:{run:async()=>{called=true}}}),ProviderUnavailableError);assert.equal(called,false)});
+test('a blocked token reservation consumes no daily request allowance',async()=>{
+ const db=database();await reserve(db,'minute',9,10);
+ assert.equal(await reserveAll(db,[{key:'daily',amount:1,limit:100},{key:'minute',amount:2,limit:10}]),false);
+ assert.equal(await db.prepare('SELECT used FROM budgets WHERE key=?').bind('daily').first(),null);
+ assert.equal((await db.prepare('SELECT used FROM budgets WHERE key=?').bind('minute').first()).used,9);
+});
+test('daily token reservation settles to actual provider usage',async()=>{
+ const db=database();await generateAnswer(messages,{CORPUS:db,GROQ_API_KEY:'test-only'},{sourceCount:1,fetcher:async()=>Response.json({usage:{total_tokens:123},choices:[{message:{content:'Answer [1]'}}]})});
+ assert.equal((await db.prepare('SELECT used FROM budgets WHERE key=?').bind('groq:daily-tokens:'+new Date().toISOString().slice(0,10)).first()).used,123);
+ assert.equal((await db.prepare('SELECT used FROM budgets WHERE key=?').bind('groq:openai/gpt-oss-120b:tokens:'+Math.floor(Date.now()/60000)).first()).used,123);
+});
+test('provider failures are not falsely reported as exhausted free allowance',async()=>{
+ await assert.rejects(generateAnswer(messages,{CORPUS:database(),GROQ_API_KEY:'test-only'},{fetcher:async()=>new Response('',{status:400})}),ProviderUnavailableError);
+});
 test('valid combined citations are normalized and a failed model can use the second free model',async()=>{
  const models=[];const r=await generateAnswer(messages,{CORPUS:database(),GROQ_API_KEY:'test-only',FREE_ONLY:'true'},{sourceCount:2,fetcher:async(url,options)=>{const m=JSON.parse(options.body).model;models.push(m);return Response.json({choices:[{message:{content:models.length===1?'No citations':'Supported [Sources 1, 2]'}}]})}});
  assert.equal(r.model,'qwen/qwen3.8-27b');assert.match(r.answer,/\[1\] \[2\]/);

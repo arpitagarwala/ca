@@ -3,9 +3,11 @@
 export function renderMarkdown(value){
  const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const inline=s=>escape(s).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*([^*\n]+)\*/g,'<em>$1</em>');
- const lines=String(value||'').split('\n'),out=[];let table=[];
+ const lines=String(value||'').split('\n'),out=[];let table=[],fence=null;
  const flush=()=>{if(!table.length)return;const rows=table.filter(l=>!/^\s*\|?[\s:|\-]+\|?\s*$/.test(l));out.push('<div class="table-scroll"><table>'+rows.map((r,i)=>'<tr>'+r.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(c=>'<'+(i?'td':'th')+'>'+inline(c.trim())+'</'+(i?'td':'th')+'>').join('')+'</tr>').join('')+'</table></div>');table=[]};
  for(const line of lines){
+  if(/^\s*```/.test(line)){flush();if(fence){out.push('<pre><code>'+escape(fence.join('\n'))+'</code></pre>');fence=null}else fence=[];continue}
+  if(fence){fence.push(line);continue}
   if(/^\s*\|.+\|\s*$/.test(line)){table.push(line);continue}flush();
   if(!line.trim()){out.push('<div class="answer-gap"></div>');continue}
   const h=/^#{1,4}\s+(.+)/.exec(line);if(h){out.push('<h3>'+inline(h[1])+'</h3>');continue}
@@ -13,5 +15,5 @@ export function renderMarkdown(value){
   const bullet=/^\s*[-*]\s+(.+)/.exec(line);if(bullet){out.push('<div class="answer-bullet">• '+inline(bullet[1])+'</div>');continue}
   out.push('<div>'+inline(line)+'</div>');
  }
- flush();return out.join('');
+ if(fence)out.push('<pre><code>'+escape(fence.join('\n'))+'</code></pre>');flush();return out.join('');
 }
