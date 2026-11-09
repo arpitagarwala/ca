@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-08T06:41:25.900Z",
+  "checkedAt": "2026-11-09T07:09:50.963Z",
   "complete": true,
   "records": 1167,
   "changed": 0,
@@ -10,7 +10,7 @@
       "attempt": "May 2026",
       "url": "https://boslive.icai.org/assets/BOS_Study_Material_applicable_for_May_2026_Examination.pdf",
       "sha256": "05429b010207aab0d18c939d4a8ca44661bd382ef391a1e5166c72fa983e336c",
-      "verifiedAt": "2026-11-08T06:33:32.614575+00:00",
+      "verifiedAt": "2026-11-09T07:02:39.974740+00:00",
       "transport": "cloudflare-relay",
       "verifiedFacts": {
         "ibsDigests": [
@@ -26,7 +26,7 @@
       "attempt": "Nov 2026",
       "url": "https://boslive.icai.org/assets/BOS_Study_Material_applicable_for_Final_Course_November_2026_Examination.pdf",
       "sha256": "a64cdd1b70dde46a8075547fc7e1b9e45e56c7e1c0bcb2ecde9351ae7ee7ba47",
-      "verifiedAt": "2026-11-08T06:33:35.561321+00:00",
+      "verifiedAt": "2026-11-09T07:02:42.354474+00:00",
       "transport": "cloudflare-relay",
       "verifiedFacts": {
         "ibsDigests": [
@@ -39,5 +39,5 @@
       }
     }
   ],
-  "runUrl": "https://github.com/arpitagarwala/ca/actions/runs/42455182886"
+  "runUrl": "https://github.com/arpitagarwala/ca/actions/runs/42576697797"
 }
